@@ -1,0 +1,205 @@
+
+:root {
+    --elsize: brown; /* elements width */
+    --margL: 10px; /* margin (left and right)*/
+    --margT: 10px; /* margin top */
+    --bRs: 1em; /* border radius */
+    --bckCol: gray; /* background color*/
+    --br: black 1px solid; /* border  */
+    --clr: floralwhite;
+}
+
+h2:hover{
+    color: chartreuse;
+}
+
+#mapid { height: 180px;
+            background-color: #88D5E9}
+
+th{
+    padding-right: 10px
+}
+
+a{
+    color: indianred;
+}
+
+a:hover{
+    color: black;
+}
+
+.icone{
+    width: available;
+    font-size: 2em;
+    text-align: center;
+
+}
+
+header, footer{
+    margin-left: var(--margL);
+    margin-right: var(--margL);
+    margin-top: var(--margT);
+    background: var(--bckCol);
+    border: var(--br);
+    /*border: black 2px solid;*/
+    border-radius: var(--bRs);
+    padding: 10px;
+    color:lightslategray;
+}
+
+header{
+    height: fit-content;
+}
+
+.sidenav{
+    margin-left: var(--margL);
+    margin-top: var(--margT);
+    width: var(--elsize);
+    height: content-box;
+    background: var(--bckCol);
+    color: floralwhite;
+    border: var(--br);
+    border-radius: var(--bRs);
+    font-size: 1em;
+    position: center;
+
+}
+
+#logo{
+    display: flex;
+    max-height: 6em;
+    padding: auto;
+    padding-left: 5px;
+    padding-top: 5px;
+    margin-top: auto;
+}
+
+#contactform{
+    width: var(--elsize);
+    margin-left: var(--margL);
+    position: center;
+    text-align: center;
+    border: var(--br);
+    border-radius: var(--bRs);
+    margin-bottom: 5px;
+    margin-top: var(--margT);
+}
+
+ul{
+    list-style: none;
+}
+
+
+.author{
+    background: gray;
+    color: floralwhite;
+}
+
+.region{
+    background: darkgrey;
+}
+
+.title{
+    background: black ;
+}
+
+
+.fontawesome{
+    width: fit-content;
+    text-align: center;
+    background: var(--bckCol);
+    border: var(--br);
+    border-radius: var(--bRs);
+    margin-top: var(--margT);
+    margin-right: var(--margL);
+}
+
+
+.form-style-1 {
+    margin:10px auto;
+    max-width: 400px;
+    padding: 20px 12px 10px 20px;
+    font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.form-style-1 li {
+    padding: 0;
+    display: block;
+    list-style: none;
+    margin: 10px 0 0 0;
+}
+.form-style-1 label{
+    margin:0 0 3px 0;
+    padding:0px;
+    display:block;
+    font-weight: bold;
+}
+.form-style-1 input[type=text],
+.form-style-1 input[type=date],
+.form-style-1 input[type=datetime],
+.form-style-1 input[type=number],
+.form-style-1 input[type=search],
+.form-style-1 input[type=time],
+.form-style-1 input[type=url],
+.form-style-1 input[type=email],
+textarea,
+select{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border:1px solid #BEBEBE;
+    padding: 7px;
+    margin:0px;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+}
+.form-style-1 input[type=text]:focus,
+.form-style-1 input[type=date]:focus,
+.form-style-1 input[type=datetime]:focus,
+.form-style-1 input[type=number]:focus,
+.form-style-1 input[type=search]:focus,
+.form-style-1 input[type=time]:focus,
+.form-style-1 input[type=url]:focus,
+.form-style-1 input[type=email]:focus,
+.form-style-1 textarea:focus,
+.form-style-1 select:focus{
+    -moz-box-shadow: 0 0 8px #88D5E9;
+    -webkit-box-shadow: 0 0 8px #88D5E9;
+    box-shadow: 0 0 8px #88D5E9;
+    border: 1px solid #88D5E9;
+}
+.form-style-1 .field-divided{
+    width: 100%;
+}
+
+.form-style-1 .field-long{
+    width: 100%;
+}
+.form-style-1 .field-select{
+    width: 100%;
+}
+.form-style-1 .field-textarea{
+    height: 50px;
+}
+.form-style-1 input[type=submit], .form-style-1 input[type=button]{
+    background: #4B99AD;
+    padding: 3px 15px 8px 3px;
+    border: none;
+    color: #fff;
+}
+.form-style-1 input[type=submit]:hover, .form-style-1 input[type=button]:hover{
+    background: #4691A4;
+    box-shadow:none;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+}
+.form-style-1 .required{
+    color:red;
+}
+
+.right-content-form{
+    width: 30%;
+}
+

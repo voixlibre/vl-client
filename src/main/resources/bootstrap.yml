@@ -1,0 +1,13 @@
+server:
+  port: 8649
+
+spring:
+  application:
+    name: ms-client
+  cloud:
+    config:
+      uri: http://164.132.197.173:8650/
+  main:
+    allow-bean-definition-overriding: true
+
+
