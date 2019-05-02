@@ -9,16 +9,34 @@
 </head>
 
 <body>
+
 <section layout:fragment="content">
     <!-- INSERT CONTENT HERE -->
+    <p>Liste des utilisateurs</p>
+
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Options</th>
+        </tr>
+        <tr th:each="campaign : ${recentCampaigns}">
+            <td th:text="${campaign.getId()}" >
+            <td th:text="${campaign.getStartDate()}" >
+            <td th:text="${campaign.getEndDate()}" >
+            <td>
+                <ul th:each="option: ${campaign.getOptions()}">
+                    <li th:text="${option.getOption()}" >
+                </ul>
+            </td>
+        </tr>
+
+
+    </table>
+
+    <hr>
 </section>
 
-<section layout:fragment="content-right">
-
-    <!-- INSERT SOMETHING HERE -->
-
-</section>
-
-</div>
 </body>
 </html>
