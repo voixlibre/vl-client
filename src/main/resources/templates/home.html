@@ -12,17 +12,19 @@
 
 <section layout:fragment="content">
     <!-- INSERT CONTENT HERE -->
-    <p>Liste des utilisateurs</p>
+    <h3>Campagnes récentes</h3>
 
     <table class="table">
         <tr>
             <th>ID</th>
+            <th>Sujet</th>
             <th>Date de début</th>
             <th>Date de fin</th>
             <th>Options</th>
         </tr>
         <tr th:each="campaign : ${recentCampaigns}">
-            <td th:text="${campaign.getId()}" >
+            <td><a th:href="@{'/campaign/id/'+ ${campaign.getId()}}" th:value="${campaign.getId()}" th:text="${campaign.getId()}">
+            <td th:text="${campaign.getTopic()?.getTitle()}">
             <td th:text="${campaign.getStartDate()}" >
             <td th:text="${campaign.getEndDate()}" >
             <td>
@@ -31,11 +33,10 @@
                 </ul>
             </td>
         </tr>
-
-
     </table>
 
     <hr>
+
 </section>
 
 </body>

@@ -1,7 +1,14 @@
 package org.greenwin.VLclient.beans;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Vote {
 
     private int id;

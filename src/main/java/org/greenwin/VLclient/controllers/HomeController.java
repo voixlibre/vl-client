@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -22,18 +23,14 @@ public class HomeController {
     @Autowired
     CampaignProxy campaignProxy;
 
-    @GetMapping("/")
-    public String home(Model model){
-        logger.info("calling home.html");
-        List<Campaign> mostRecent = campaignProxy.getMostRecentCampaigns();
-        for (int i = 0 ; i < mostRecent.size(); i++){
-            for (Option option : mostRecent.get(i).getOptions()
-                 ) {
-                logger.info("campaign: " + mostRecent.get(i).getId());
-                logger.info("option: " + option);
+    @Autowired
+    SessionController sessionController;
 
-            }
-        }
+    @GetMapping("/")
+    public String home(Model model, HttpSession session){
+        logger.info("calling home.html");
+        sessionController.init(session);
+        List<Campaign> mostRecent = campaignProxy.getMostRecentCampaigns();
         model.addAttribute("recentCampaigns", campaignProxy.getMostRecentCampaigns());
         return "home";
     }

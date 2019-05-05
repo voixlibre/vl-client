@@ -1,10 +1,24 @@
 <div th:fragment="navbar">
-    <nav class="sidenav">
-        <ul>
-            <li><a href="/">Accueil</a> </li>
-            <li><a href="/users/list">Liste des utilisateurs</a></li>
-            <li><a href="/topics/">Liste des sujets</a></li>
-            <li><a href="/test/test">Test</a></li>
-        </ul>
+    <nav>
+    <div>
+    <div class="dropdown">
+        <button class="dropbtn">Actus</button>
+        <div class="dropdown-content">
+            <a href="#">Economie</a>
+            <a href="#">Politique</a>
+            <a href="#">Social</a>
+        </div>
+    </div>
+
+
+    <div class="dropdown">
+        <button class="dropbtn">Menu</button>
+        <div class="dropdown-content">
+            <a href="/">Accueil</a>
+            <a href="/users/list">Liste des utilisateurs</a>
+            <a href="/topics/">Liste des sujets</a>
+            <a href="/test/test">Test</a>
+        </div>
+    </div>
     </nav>
 </div>
