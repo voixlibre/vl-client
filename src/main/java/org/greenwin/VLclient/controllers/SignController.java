@@ -23,7 +23,8 @@ public class SignController {
 
     @GetMapping("/")
     public String signInForm(){
-        return "/sign/sign";
+        logger.info("signInForm");
+        return "sign/sign";
     }
 
     @PostMapping("/")
@@ -32,11 +33,8 @@ public class SignController {
         user.toString();
 
         AppUser user1 = logInProxy.login(user.getEmail(), user.getPassword());
-
-
         user1.toString();
 
-
-        return "/sign/success";
+        return "sign/success";
     }
 }

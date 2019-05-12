@@ -6,38 +6,81 @@
 <head>
     <meta charset="UTF-8">
     <title>Accueil</title>
+    <script src="javascript/home.js"></script>
 </head>
 
 <body>
 
+<section layout:fragment="content-left">
+
+    <h3>Flash Actu</h3>
+
+    <img style="max-width: 100px;" src="logos/trump.jpeg" alt="logo filmpark"/>
+
+    <h5><b>Le Pentagone débourse 1,5 milliard de dollars de plus pour le mur frontalier</b></h5>
+
+
+    <p style="text-align: justify">Le Pentagone a annoncé vendredi la réaffectation de 1,5 milliard de dollars supplémentaire pour la construction de nouvelles barrières destinées à endiguer le flot d'immigrés clandestins à la frontièr...</p>
+
+
+</section>
+
 <section layout:fragment="content">
     <!-- INSERT CONTENT HERE -->
+    <div class="col-md-6">
     <h3>Campagnes récentes</h3>
 
-    <table class="table">
+    <table class="table table-bordered table-striped">
         <tr>
-            <th>ID</th>
             <th>Sujet</th>
             <th>Date de début</th>
             <th>Date de fin</th>
-            <th>Options</th>
         </tr>
         <tr th:each="campaign : ${recentCampaigns}">
-            <td><a th:href="@{'/campaign/id/'+ ${campaign.getId()}}" th:value="${campaign.getId()}" th:text="${campaign.getId()}">
-            <td th:text="${campaign.getTopic()?.getTitle()}">
+            <td><a th:href="@{'/campaign/id/'+ ${campaign.getId()}}" th:value="${campaign.getId()}" th:text="${campaign.getTopic()?.getTitle()}">
             <td th:text="${campaign.getStartDate()}" >
             <td th:text="${campaign.getEndDate()}" >
-            <td>
-                <ul th:each="option: ${campaign.getOptions()}">
-                    <li th:text="${option.getOption()}" >
-                </ul>
-            </td>
         </tr>
     </table>
 
     <hr>
 
+    </div>
+
+    <div class="col-md-6">
+        <h3>Campagnes populaires</h3>
+
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Sujet</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+            </tr>
+            <tr th:each="campaign : ${recentCampaigns}">
+                <td><a th:href="@{'/campaign/id/'+ ${campaign.getId()}}" th:value="${campaign.getId()}" th:text="${campaign.getTopic()?.getTitle()}">
+                <td th:text="${campaign.getStartDate()}" >
+                <td th:text="${campaign.getEndDate()}" >
+            </tr>
+        </table>
+
+        <hr>
+
+    </div>
+
 </section>
 
+<section layout:fragment="content-right">
+
+</section>
+
+<!--
+<script>
+    $(document).ready(function(){
+
+        // jQuery methods go here...
+        $("li").hide();
+    });
+</script>
+-->
 </body>
 </html>

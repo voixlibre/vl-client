@@ -87,7 +87,7 @@ ul#inline-menu li{
 }
 */
 ul{
-    list-style-type: square;
+    list-style-type: none;
 }
 
 /*
@@ -205,10 +205,27 @@ select{
 }
 */
 /* Dropdown Button */
+*{
+    font-family: 'Quicksand', sans-serif;
+    line-height: normal;
+    padding: 1px;
+}
+
+h1{
+    line-height: 10%;
+}
+
+.search-div{text-align: center;
+            display: inline;
+            }
+.search{display: inline;
+        width: 4em;}
+
 .dropbtn {
-    background-color: -moz-mac-accentdarkestshadow;
+    /*background-color: -moz-mac-accentdarkestshadow;*/
+    background-color: black;
     color: white;
-    padding: 16px;
+    padding: 8px;
     font-size: 16px;
     border: none;
 }
@@ -245,4 +262,9 @@ select{
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: -moz-mac-accentdarkshadow;}
+
+.dropdown{
+    display: inline;
+}
+
 

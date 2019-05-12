@@ -4,8 +4,11 @@ import org.greenwin.VLclient.proxies.CampaignProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/campaign")
@@ -20,5 +23,11 @@ public class CampaignController {
         //TODO: vérifier s'il a voté et modifier le code en fonction
         model.addAttribute("campaign", campaignProxy.getCampaignById(id));
         return "campaign/description";
+    }
+
+    @GetMapping("/form")
+    public String form(Model model, HttpSession session){
+
+        return "campaign/form";
     }
 }

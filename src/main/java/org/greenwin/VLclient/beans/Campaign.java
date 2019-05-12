@@ -20,7 +20,7 @@ public class Campaign {
 
     private int TopicId;
 
-    Set<Vote> votes = new HashSet<>();
+    private Set<Vote> votes = new HashSet<>();
 
     private LocalDate startDate;
 

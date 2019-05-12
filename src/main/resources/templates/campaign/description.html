@@ -10,6 +10,10 @@
 
 <body>
 
+<section layout:fragment="content-left">
+
+</section>
+
 <section layout:fragment="content">
     <!-- INSERT CONTENT HERE -->
 
@@ -36,12 +40,19 @@
     <hr>
 
     <form action="/votes/" class="form-group" method="post">
-        <input class="form-control" th:each="option : ${campaign.getOptions()}" th:type="checkbox" th:name="optionId" th:value="${option.getId()}" th:text="${option.getOption()}"> <br>
-        <input type="hidden" name= "campaignId" th:value="${campaign.getId()}">
-        <input class="form-control" type="submit" value="Voter">
+        <div class="form-group">
+            <div th:each="option : ${campaign.getOptions()}">
+                <input class="radio-inline"  th:id="${option.getId()}" th:type="radio" th:name="optionId" th:value="${option.getId()}"> <br>
+                <label th:for="${option.getId()}" th:text="${option.getOption()}" />
+                <input type="hidden" name= "campaignId" th:value="${campaign.getId()}">
+            </div>
+        <input class="btn btn-default btn-primary" type="submit" value="Voter">
+        </div>
     </form>
 
+</section>
 
+<section layout:fragment="content-right">
 
 </section>
 
