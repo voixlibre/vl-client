@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html data-layout-decorate="~{layout}" lang="fr">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}" lang="fr">
 <head>
     <title>Identification</title>
 </head>
@@ -17,9 +20,8 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h3>Création d'un compte</h3>
-                    <h6>Si vous avez des questions, n'hésitez pas à <a href="#">nous contacter</a></h6>
                     <div class="row">
-                        <form action="/sign/signup" method="post">
+                        <form action="/sign/signUp" method="post">
                             <ul class="list-group">
 
                                 <!-- User last name -->
@@ -43,7 +45,7 @@
                                                    class="form-control"
                                                    id="name_reg"
                                                    required
-                                                   name="name_reg">
+                                                   name="name">
                                             <div class="input-group-btn">
                                                 <button class="btn btn-danger"
                                                         id="check_name_reg"
@@ -71,7 +73,7 @@
                                                    class="form-control"
                                                    id="firstName_reg"
                                                    required
-                                                   name="firstName_reg">
+                                                   name="firstName">
                                             <div class="input-group-btn">
                                                 <button class="btn btn-danger"
                                                         id="check_firstName_reg"
@@ -99,7 +101,7 @@
                                                 E-mail
                                             </label>
                                             <input type="email"
-                                                   name="email_reg"
+                                                   name="email"
                                                    class="form-control"
                                                    id="user_email_reg"
                                                    required>
@@ -130,7 +132,7 @@
                                                 Mot de passe
                                             </label>
                                             <input type="password"
-                                                   name="password_reg"
+                                                   name="password"
                                                    class="form-control"
                                                    id="user_password_reg_1"
                                                    required>
@@ -155,10 +157,10 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <label for="user_password_reg_2" class="input-group-addon" style="width: 150px;">
-                                                Confirmer mot de passe
+                                                Confirmer
                                             </label>
                                             <input type="password"
-                                                   name="password_reg_2"
+                                                   name="password2"
                                                    class="form-control"
                                                    id="user_password_reg_2"
                                                    required>
@@ -199,10 +201,9 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h3>Connexion à mon compte</h3>
-                    <h6>Si vous avez des questions, n'hésitez pas à <a href="#">nous contacter</a></h6>
                     <br>
                     <div class="row">
-                        <form action="/sign/" method="post">
+                        <form action="/sign/signIn" method="post">
                             <ul class="list-group">
 
                                 <!-- User email -->
@@ -216,7 +217,7 @@
                                             <input type="email"
                                                    class="form-control"
                                                    id="user_email"
-                                                   name="email"
+                                                   name="email1"
                                                    required>
                                             <div class="input-group-btn">
                                                 <button class="btn btn-danger"
@@ -244,7 +245,7 @@
                                             <input type="password"
                                                    class="form-control"
                                                    id="login_password"
-                                                   name="password"
+                                                   name="password1"
                                                    required>
                                             <div class="input-group-btn">
                                                 <button class="btn btn-danger"
@@ -292,7 +293,7 @@
 </div>
 </div>
 
-<section data-layout-fragment="content-right"></section>
+
 
 </body>
 </html>

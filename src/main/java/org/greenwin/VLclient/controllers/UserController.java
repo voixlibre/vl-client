@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.jws.WebParam;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/users")
@@ -18,10 +22,19 @@ public class UserController {
     @Autowired
     AppUserProxy appUserProxy;
 
+    @Autowired
+    SessionController sessionController;
+
     @GetMapping("/list")
     public String list(Model model){
         logger.info("Displaying the list of all users.");
         model.addAttribute("users", appUserProxy.getAllUsers());
         return "users/list";
+    }
+
+    @GetMapping("/account")
+    public String userAccount(Model model, HttpSession session){
+        sessionController.addSessionAttributes(session, model);
+        return "users/account";
     }
 }

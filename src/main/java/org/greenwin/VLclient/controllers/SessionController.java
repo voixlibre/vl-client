@@ -25,7 +25,7 @@ public class SessionController {
     }
 
     public void init(HttpSession session){
-        session.setAttribute("user", appUserProxy.getUserById(1));
+
     }
 
     public void addSessionAttributes(HttpSession session, Model model){
@@ -34,7 +34,7 @@ public class SessionController {
             AppUser user = (AppUser) session.getAttribute("user");
             model.addAttribute("user", user);
         }catch (NullPointerException e){
-            logger.info("Pas d'utilisateur identifié");
+            logger.info("No user logged in.");
         }
     }
 

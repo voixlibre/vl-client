@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      layout:decorate="~{layout.html}">
 
 <head>
     <title>Template</title>
@@ -16,7 +16,7 @@
 
 <section layout:fragment="content">
     <!-- INSERT CONTENT HERE -->
-    <h1 th:text="${message}" >
+    <h1 th:text="${message}" />
 </section>
 
 <section layout:fragment="content-right">

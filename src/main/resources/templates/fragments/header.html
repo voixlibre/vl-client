@@ -3,18 +3,23 @@
         <!-- col 1  -->
 
         <div class="row">
-
+            <div>
+                <h3>voixlibre.org Lisez, pensez, votez...</h3>
+            </div>
 
         </div>
 
         <div class="row">
             <div class="col-md-3">
-                <div>
-                    <p>voixlibre.org</p>
-                    <p>Lisez, pensez, votez...</p>
-                </div>
-                <a th:unless="${user}" href="/sign/">Enregistrement</a>
-                    <!-- <a th:unless="!${username}" th:href="@{'/'+ ${user.getId()}}">Profil utilisateur</a> -->
+
+                <ul>
+                    <div th:inline="text">
+                        <li><p th:unless="!${user}"> Bienvenue, [[${user.getFirstName()}]] <span> - </span> <a th:unless="!${user}" th:href="@{/sign/out}" th:text="Déconnexion"/></p></li>
+                    </div>
+                    <li><a th:unless="${user}" th:href="@{/sign/}">Identification</a></li>
+
+                </ul>
+
             </div>
             <!-- col 2  -->
             <div class="col-md-7">
@@ -28,14 +33,6 @@
                 </form>
             </div>
             <div class="col-md-2">
-                <!--
-                <div>
-                    <img id="logo" th:src="@{../../pics/logos/filmpark.jpeg}" alt="logo"/>
-                </div>
-                -->
-                <div>
-                    <img id="gitHub" src="logos/binaryExample.jpg" alt="logo"/>
-                </div>
 
                 <div>
                     <img id="gitHu" th:src="@{logos/binaryExample.jpg}" alt="logo"/>

@@ -14,11 +14,14 @@ import java.util.List;
 @RibbonClient(name = "ms-users")
 public interface AppUserProxy {
 
-    @GetMapping(value = "/ms-users/users")
+    @GetMapping(value = "/ms-users/users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     List<AppUser> getAllUsers();
 
-    @GetMapping("/id/{id}")
+    @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     AppUser getUserById(@PathVariable("id") int id);
+
+    @GetMapping(value = "/email/{email}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    AppUser getUserByEmail(@PathVariable("email") String email);
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     AppUser saveUser(@RequestBody AppUser appUser);

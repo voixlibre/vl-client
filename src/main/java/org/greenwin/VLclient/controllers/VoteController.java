@@ -51,10 +51,9 @@ public class VoteController {
 
         try {
             Vote voteConfirmation = voteProxy.saveVote(vote);
-
             model.addAttribute("message", "Votre vote a été pris en compte.");
             model.addAttribute("vote", voteConfirmation);
-            return "votes/success";
+            return "votes/results";
         }catch (Exception e){
 
             return "votes/failure";

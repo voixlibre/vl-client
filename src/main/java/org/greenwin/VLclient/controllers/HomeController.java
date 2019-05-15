@@ -29,7 +29,8 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model, HttpSession session){
         logger.info("calling home.html");
-        sessionController.init(session);
+        logger.info("user: " + session.getAttribute("user"));
+        sessionController.addSessionAttributes(session, model);
         List<Campaign> mostRecent = campaignProxy.getMostRecentCampaigns();
         model.addAttribute("recentCampaigns", campaignProxy.getMostRecentCampaigns());
         return "home";
