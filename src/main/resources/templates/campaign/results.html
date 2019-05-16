@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+
+<head>
+    <title>Template</title>
+
+</head>
+
+<body>
+
+<section layout:fragment="content-left">
+    <!-- INSERT CONTENT HERE -->
+</section>
+
+<section layout:fragment="content">
+    <!-- INSERT CONTENT HERE -->
+    <h3 th:text="'Résultats de la campagne ' + ${campaign.getId()}"></h3>
+</section>
+
+<section layout:fragment="content-right">
+
+    <!-- INSERT SOMETHING HERE -->
+
+</section>
+
+
+</body>
+</html>
+
+<!--
+    <p>Liste des utilisateurs</p>
+
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Options</th>
+        </tr>
+        <tr th:each="campaign : ${recentCampaigns}">
+                <td th:text="${campaign.getId()}" >
+                <td th:text="${campaign.getStartDate()}" >
+                <td th:text="${campaign.getEndDate()}" >
+
+                <ul th:each="option: ${campaign.getOptions()}">
+                    <li th:text="${option.getOption()}" >
+                </ul>
+
+        </tr>
+
+    </table>
+    -->

@@ -27,13 +27,14 @@ public class UserController {
 
     @GetMapping("/list")
     public String list(Model model){
-        logger.info("Displaying the list of all users.");
+        logger.info(getClass() + "### list method ###");
         model.addAttribute("users", appUserProxy.getAllUsers());
         return "users/list";
     }
 
     @GetMapping("/account")
     public String userAccount(Model model, HttpSession session){
+        logger.info(getClass() + "### userAccount method ###");
         sessionController.addSessionAttributes(session, model);
         return "users/account";
     }

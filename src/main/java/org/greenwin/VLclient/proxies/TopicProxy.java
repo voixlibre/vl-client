@@ -12,17 +12,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 @Component
-@FeignClient(name = "zuul-server", url = "http://localhost:8652/")
+//@FeignClient(name = "zuul-server", url = "http://localhost:8652/")
+@FeignClient(name = "ms-topics", url = "http://localhost:8641/topics")
 @RibbonClient(name = "ms-topics")
 public interface TopicProxy {
 
-    @GetMapping("/ms-topics/topics/")
+    //@GetMapping("/ms-topics/topics/")
+    @GetMapping("/")
     List<Topic> getTopics();
 
-    @GetMapping("/ms-topics/{id}")
+    //@GetMapping("/ms-topics/{id}")
+    @GetMapping("/id/{id}")
     Topic getTopicById(@PathVariable("id") int id);
 
-    @PostMapping("/ms-topics/")
+    //@PostMapping("/ms-topics/")
+    @PostMapping("/")
     Topic saveTopic(@RequestBody Topic topic);
 
 }

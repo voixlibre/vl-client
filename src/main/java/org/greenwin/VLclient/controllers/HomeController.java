@@ -3,6 +3,7 @@ package org.greenwin.VLclient.controllers;
 import org.greenwin.VLclient.beans.Campaign;
 import org.greenwin.VLclient.beans.Option;
 import org.greenwin.VLclient.proxies.CampaignProxy;
+import org.greenwin.VLclient.proxies.TopicProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +25,28 @@ public class HomeController {
     CampaignProxy campaignProxy;
 
     @Autowired
+    TopicProxy topicProxy;
+
+    @Autowired
     SessionController sessionController;
 
+    /**
+     *
+     * @param model
+     * @param session
+     * @return
+     */
     @GetMapping("/")
     public String home(Model model, HttpSession session){
-        logger.info("calling home.html");
+        logger.info(getClass() + "### home method ###");
         logger.info("user: " + session.getAttribute("user"));
         sessionController.addSessionAttributes(session, model);
+
+        //get most recent campaigns and assign each their respective topic
         List<Campaign> mostRecent = campaignProxy.getMostRecentCampaigns();
-        model.addAttribute("recentCampaigns", campaignProxy.getMostRecentCampaigns());
+        for (Campaign campaign : mostRecent)
+            campaign.setTopic(topicProxy.getTopicById(campaign.getTopicId()));
+        model.addAttribute("recentCampaigns", mostRecent);
         return "home";
     }
 }

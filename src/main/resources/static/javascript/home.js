@@ -4,6 +4,6 @@ $(document).ready(function(){
     $("li").fadeOut(5000);
     //$("#trump").onclick(this, fadeOut(5000);
     $("#trump").click(function(){
-        $(this).fadeOut(5000);
+        $(this).fadeToggle(5000);
     });
 });
