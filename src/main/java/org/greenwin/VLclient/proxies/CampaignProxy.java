@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 @FeignClient(name = "ms-campaign", url = "http://localhost:8642/campaign")
@@ -22,4 +23,7 @@ public interface CampaignProxy {
 
     @GetMapping("/recent")
     List<Campaign> getMostRecentCampaigns();
+
+    @GetMapping("/results/{id}")
+    Map<Integer, Integer> getCampaignResults(@PathVariable ("id") int id);
 }

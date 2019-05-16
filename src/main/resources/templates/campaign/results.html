@@ -4,7 +4,7 @@
       layout:decorate="~{layout.html}">
 
 <head>
-    <title>Template</title>
+    <title th:text="'campagne: ' + ${campaign.getTopic()?.getTitle()}"></title>
 
 </head>
 
@@ -17,6 +17,16 @@
 <section layout:fragment="content">
     <!-- INSERT CONTENT HERE -->
     <h3 th:text="'Résultats de la campagne ' + ${campaign.getId()}"></h3>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Option</th>
+            <th>Nombre de votes</th>
+        </tr>
+        <tr th:each="entry : ${results}">
+            <td th:text="${entry.key.getOption()}">option</td>
+            <td th:text="${entry.value}">nbVotes</td>
+        </tr>
+    </table>
 </section>
 
 <section layout:fragment="content-right">
