@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Component
-@FeignClient(name = "zuul-server", url = "http://localhost:8640/users/")
+//@FeignClient(name = "zuul-server", url = "http://localhost:8640/users/")
+@FeignClient(name = "ms-users", url = "http://localhost:8640/users")
 @RibbonClient(name = "ms-users")
 public interface AppUserProxy {
 
-    @GetMapping(value = "/ms-users/users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    //@GetMapping(value = "/ms-users/users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     List<AppUser> getAllUsers();
 
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

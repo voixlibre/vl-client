@@ -16,6 +16,8 @@ public class Campaign {
 
     private int id;
 
+    String question;
+
     private Topic topic;
 
     private int TopicId;

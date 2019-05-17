@@ -27,10 +27,28 @@
 
 <section layout:fragment="content">
     <!-- INSERT CONTENT HERE -->
-    <div class="col-md-6">
-    <h3>Campagnes récentes</h3>
 
-    <table class="table table-bordered table-striped">
+    <h3 th:id="ongoingTitle">Campagnes en cours <span class="caret"/></h3>
+    <table th:id="ongoingTable" class="table table-bordered table-striped">
+        <tr>
+            <th>Sujet</th>
+            <th>Question</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+        </tr>
+        <tr th:each="campaign : ${recentCampaigns}">
+            <td th:text="${campaign.getTopic()?.getTitle()}">
+            <td><a th:href="@{'/campaign/id/'+ ${campaign.getId()}}" th:value="${campaign.getId()}" th:text="${campaign.getQuestion()}">
+            <td th:text="${campaign.getStartDate()}" >
+            <td th:text="${campaign.getEndDate()}" >
+        </tr>
+    </table>
+
+    <hr>
+
+        <h3 id="comingSoonTitle">Campagnes à venir <span class="caret"/></h3>
+
+    <table id="comingSoonTable" class="table table-bordered table-striped">
         <tr>
             <th>Sujet</th>
             <th>Date de début</th>
@@ -43,29 +61,10 @@
         </tr>
     </table>
 
-    <hr>
-
-    </div>
-
-    <div class="col-md-6">
-        <h3>Campagnes populaires</h3>
-
-        <table class="table table-bordered table-striped">
-            <tr>
-                <th>Sujet</th>
-                <th>Date de début</th>
-                <th>Date de fin</th>
-            </tr>
-            <tr th:each="campaign : ${recentCampaigns}">
-                <td><a th:href="@{'/campaign/id/'+ ${campaign.getId()}}" th:value="${campaign.getId()}" th:text="${campaign.getTopic()?.getTitle()}">
-                <td th:text="${campaign.getStartDate()}" >
-                <td th:text="${campaign.getEndDate()}" >
-            </tr>
-        </table>
 
         <hr>
 
-    </div>
+
 
 </section>
 

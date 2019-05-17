@@ -8,18 +8,29 @@
 
 </head>
 
+<section layout:fragment="content-left">
+
+</section>
+
 <body>
 <section layout:fragment="content">
     <!-- INSERT CONTENT HERE -->
 
     <p>Liste des utilisateurs</p>
 
-    <table class="table">
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Anniversaire</th>
+        </tr>
         <tr th:each="user : ${users}">
             <td th:text="${user.getFirstName()}">
             <td th:text="${user.getName()}">
             <td th:text="${user.getEmail()}">
             <td th:text="${user.getBirthday()}">
+            <td></td>
         </tr>
     </table>
 

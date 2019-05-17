@@ -21,10 +21,12 @@
         <tr>
             <th>Option</th>
             <th>Nombre de votes</th>
+            <th>%</th>
         </tr>
         <tr th:each="entry : ${results}">
             <td th:text="${entry.key.getOption()}">option</td>
             <td th:text="${entry.value}">nbVotes</td>
+            <td th:text="${entry.value} / ${totalVotes} * 100 + '%'"  th:pattern="'^\d{1,5}(\.\d{1,2})?$'"> </td>
         </tr>
     </table>
 </section>

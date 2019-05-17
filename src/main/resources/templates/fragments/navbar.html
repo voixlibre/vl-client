@@ -1,40 +1,47 @@
 <div th:fragment="navbar">
     <nav class="navbar navbar-default">
-        <div class="navbar-header">
-        </div>
-        <ul>
-            <li>essai</li>
-            <li>hoho</li>
-        </ul>
+
         <div class="dropdown">
             <button class="dropbtn">Menu<span class="caret"/></button>
             <div class="dropdown-content">
                 <a href="/">Accueil</a>
-                <a href="/users/list">Liste des utilisateurs</a>
                 <a href="/topics/">Liste des sujets</a>
                 <a href="/test/test">Test</a>
             </div>
         </div>
-    <div class="dropdown">
-        <button class="dropbtn">Test</button>
-        <div class="dropdown-content">
-            <a href="/test/index">index</a>
-            <a href="/test/blank">blank</a>
-            <a href="/test/buttons">buttons</a>
-            <a href="/test/cards">cards</a>
-            <a href="/test/forgotPasswords">forgotPasswords</a>
-            <a href="/test/buttons">buttons</a>
+
+        <div class="dropdown">
+            <button class="dropbtn">Administrateur</button>
+            <div class="dropdown-content">
+                <a href="/users/list">Liste des utilisateurs</a>
+                <a href="/test/index">index</a>
+                <a href="/test/blank">blank</a>
+                <a href="/test/buttons">buttons</a>
+                <a href="/test/cards">cards</a>
+                <a href="/test/forgotPasswords">forgotPasswords</a>
+                <a href="/test/buttons">buttons</a>
+            </div>
         </div>
-    </div>
+        <div class="dropdown">
+            <button class="dropbtn">Test</button>
+            <div class="dropdown-content">
+                <a href="/test/index">index</a>
+                <a href="/test/blank">blank</a>
+                <a href="/test/buttons">buttons</a>
+                <a href="/test/cards">cards</a>
+                <a href="/test/forgotPasswords">forgotPasswords</a>
+                <a href="/test/buttons">buttons</a>
+            </div>
+        </div>
 
 
-    <div class="dropdown">
-        <button class="dropbtn">Alimentation</button>
-        <div class="dropdown-content">
-            <a href="/">Alimentation</a>
-            <a href="/users/list">Agriculture</a>
+        <div class="dropdown">
+            <button class="dropbtn">Alimentation</button>
+            <div class="dropdown-content">
+                <a href="/">Alimentation</a>
+                <a href="/users/list">Agriculture</a>
+            </div>
         </div>
-    </div>
 
 
 
@@ -72,10 +79,10 @@
             </div>
         </div>
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton" type="button">
                 Dropdown button
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
                 <a class="dropdown-item" href="/admin/dashboard">Dashboard</a>
                 <a class="dropdown-item" href="#">Another action</a>
                 <a class="dropdown-item" href="#">Something else here</a>

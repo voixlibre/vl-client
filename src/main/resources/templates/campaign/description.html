@@ -26,23 +26,14 @@
             <th>Description</th>
             <td th:text="${campaign.getTopic()?.getSummary()}" >
         </tr>
-        <tr>
-            <th>Options</th>
-            <td>
-               <ul th:each="option : ${campaign.getOptions()}">
-                   <li th:text="${option.getOption()}">
-               </ul>
-            </td>
-        </tr>
-
     </table>
 
     <hr>
 
     <form action="/votes/" class="form-group" method="post">
-        <div class="form-group">
+        <div>
             <div th:each="option : ${campaign.getOptions()}">
-                <input class="radio-inline"  th:id="${option.getId()}" th:type="radio" th:name="optionId" th:value="${option.getId()}"> <br>
+                <input th:id="${option.getId()}" th:type="radio" th:name="optionId" th:value="${option.getId()}">
                 <label th:for="${option.getId()}" th:text="${option.getOption()}" />
                 <input type="hidden" name= "campaignId" th:value="${campaign.getId()}">
             </div>
