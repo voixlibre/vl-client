@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title>Accueil</title>
+</head>
+
+<body>
+
+<section layout:fragment="content-left">
+</section>
+
+<section layout:fragment="content">
+    <!-- INSERT CONTENT HERE -->
+    <table>
+        <thead>
+        <tr>
+            <th th:text="#{seedstarter.rows.head.rownum}">Row</th>
+            <th th:text="#{seedstarter.rows.head.variety}">Variety</th>
+            <th th:text="#{seedstarter.rows.head.seedsPerCell}">Seeds per cell</th>
+            <th>
+                <button type="submit" name="addRow" th:text="#{seedstarter.row.add}">Add row</button>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="row,rowStat : *{rows}">
+            <td th:text="${rowStat.count}">1</td>
+            <td>
+                <select th:field="*{rows[__${rowStat.index}__].variety}">
+                    <option th:each="var : ${allVarieties}"
+                            th:value="${var.id}"
+                            th:text="${var.name}">Thymus Thymi</option>
+                </select>
+            </td>
+            <td>
+                <input type="text" th:field="*{rows[__${rowStat.index}__].seedsPerCell}" />
+            </td>
+            <td>
+                <button type="submit" name="removeRow"
+                        th:value="${rowStat.index}" th:text="#{seedstarter.row.remove}">Remove row</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</section>
+
+<section layout:fragment="content-right">
+
+</section>
+
+</body>
+</html>

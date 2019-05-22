@@ -2,11 +2,9 @@ package org.greenwin.VLclient.proxies;
 
 import org.greenwin.VLclient.beans.Campaign;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -26,4 +24,7 @@ public interface CampaignProxy {
 
     @GetMapping("/results/{id}")
     Map<Integer, Integer> getCampaignResults(@PathVariable ("id") int id);
+
+    @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    Campaign updateCampaign(@RequestBody Campaign c);
 }

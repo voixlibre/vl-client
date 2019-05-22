@@ -19,13 +19,16 @@ import javax.servlet.http.HttpSession;
 public class VoteController {
 
     @Autowired
-    VoteProxy voteProxy;
+    private VoteProxy voteProxy;
 
     @Autowired
-    OptionProxy optionProxy;
+    private OptionProxy optionProxy;
 
     @Autowired
-    CampaignProxy campaignProxy;
+    private CampaignProxy campaignProxy;
+
+    @Autowired
+    private SessionController sessionController;
 
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -43,6 +46,7 @@ public class VoteController {
         session.setAttribute("user", new AppUser());
         if(session.getAttribute("user") == null) {
                 model.addAttribute("message", "Veuillez s'il vous plait vous authentifier");
+            sessionController.addSessionAttributes(session, model);
                 return "sign/sign";
         }
 
@@ -55,9 +59,10 @@ public class VoteController {
             Vote voteConfirmation = voteProxy.saveVote(vote);
             model.addAttribute("message", "Votre vote a été pris en compte.");
             model.addAttribute("vote", voteConfirmation);
+            sessionController.addSessionAttributes(session, model);
             return "votes/results";
         }catch (Exception e){
-
+            sessionController.addSessionAttributes(session, model);
             return "votes/failure";
         }
     }

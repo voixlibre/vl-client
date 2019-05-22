@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+
+<head>
+    <title th:text="'Campagne ' + ${campaign.getId()}">Titre</title>
+    <!-- <title th:text="${campaign.getTopic()?.getTitle()}">Campagne </title> -->
+</head>
+
+<body>
+
+<section layout:fragment="content-left">
+    <!-- INSERT CONTENT HERE -->
+</section>
+
+<section layout:fragment="content">
+    <!-- INSERT CONTENT HERE -->
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Sujet</th>
+            <th>Question</th>
+            <th>Commence le</th>
+            <th>Se termine le</th>
+        </tr>
+        <tr>
+            <td th:text="${campaign.getTopic()}">
+            <td th:text="${campaign.getQuestion()}" >
+            <td th:text="${campaign.getStartDate()}" >
+            <td th:text="${campaign.getEndDate()}" >
+        </tr>
+    </table>
+    <ul>
+        <li><a th:href="@{'/campaign/delete/' + ${campaign.getId()}}"><i class="fa fa-trash"></i></a></li>
+        <li><a th:href="@{'/campaign/edit/' + ${campaign.getId()}}"><i class="fa fa-edit"></i></a></li>
+    </ul>
+
+</section>
+
+<section layout:fragment="content-right">
+
+    <!-- INSERT SOMETHING HERE -->
+
+</section>
+
+
+</body>
+</html>
+

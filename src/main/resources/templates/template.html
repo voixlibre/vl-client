@@ -4,6 +4,7 @@
       layout:decorate="~{layout.html}">
 
 <head>
+    <meta charset="UTF-8">
     <title>Template</title>
 
 </head>
@@ -12,6 +13,7 @@
 
 <section layout:fragment="content-left">
     <!-- INSERT CONTENT HERE -->
+
 </section>
 
 <section layout:fragment="content">
@@ -28,26 +30,3 @@
 </body>
 </html>
 
-<!--
-    <p>Liste des utilisateurs</p>
-
-    <table class="table">
-        <tr>
-            <th>ID</th>
-            <th>Date de début</th>
-            <th>Date de fin</th>
-            <th>Options</th>
-        </tr>
-        <tr th:each="campaign : ${recentCampaigns}">
-                <td th:text="${campaign.getId()}" >
-                <td th:text="${campaign.getStartDate()}" >
-                <td th:text="${campaign.getEndDate()}" >
-
-                <ul th:each="option: ${campaign.getOptions()}">
-                    <li th:text="${option.getOption()}" >
-                </ul>
-
-        </tr>
-
-    </table>
-    -->

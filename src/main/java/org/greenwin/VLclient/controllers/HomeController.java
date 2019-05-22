@@ -1,7 +1,6 @@
 package org.greenwin.VLclient.controllers;
 
 import org.greenwin.VLclient.beans.Campaign;
-import org.greenwin.VLclient.beans.Option;
 import org.greenwin.VLclient.proxies.CampaignProxy;
 import org.greenwin.VLclient.proxies.TopicProxy;
 import org.slf4j.Logger;
@@ -40,7 +39,7 @@ public class HomeController {
     public String home(Model model, HttpSession session){
         logger.info(getClass() + "### home method ###");
         logger.info("user: " + session.getAttribute("user"));
-        sessionController.addSessionAttributes(session, model);
+        //sessionController.addSessionAttributes(session, model);
 
         //get most recent campaigns and assign each their respective topic
         List<Campaign> mostRecent = campaignProxy.getMostRecentCampaigns();
@@ -49,4 +48,6 @@ public class HomeController {
         model.addAttribute("recentCampaigns", mostRecent);
         return "home";
     }
+
+
 }

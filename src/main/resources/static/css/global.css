@@ -207,8 +207,12 @@ select{
 /* Dropdown Button */
 *{
     font-family: 'Quicksand', sans-serif;
-    line-height: normal;
     padding: 1px;
+}
+
+#jumbo{
+    max-height: fit-content;
+    padding: 1%;
 }
 
 

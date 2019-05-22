@@ -48,23 +48,20 @@ public class SignController {
     @PostMapping("/signIn")
     public String signIn(@RequestParam String email1, @RequestParam String password1, Model model, HttpSession session){
 
-        logger.info("email:" + email1);
-        logger.info("password: " + password1);
         AppUser user = new AppUser();
         user.setEmail(email1);
         user.setPassword(password1);
-        AppUser user1 = loginService.signIn(user);
+        AppUser user1 = loginService.signIn(user, session);
 
         if (user1 != null) {
-            model.addAttribute("message", "Merci de vous être authentifié");
-            session.setAttribute("user", user1);
+            successfulAuthentication(session, model, user1);
             sessionController.addSessionAttributes(session, model);
             return "home";
         }else {
             model.addAttribute("message", "L'identification a échoué.");
+            sessionController.addSessionAttributes(session, model);
             return "sign/sign";
         }
-
     }
 
     /**
@@ -74,8 +71,21 @@ public class SignController {
      */
     @PostMapping("/signUp")
     public String signUp(@ModelAttribute AppUser user, HttpSession session, Model model){
+        loginService.signUp(user, session);
+        successfulAuthentication(session, model, user);
+        sessionController.addSessionAttributes(session, model);
+        return "home";
+    }
 
-
-        return "sign/success";
+    /**
+     * registering user in session and model
+     * @param session
+     * @param model
+     * @param user
+     */
+    public void successfulAuthentication(HttpSession session, Model model, AppUser user){
+        model.addAttribute("message", "Merci de vous être authentifié");
+        session.setAttribute("user", user);
+        sessionController.addSessionAttributes(session, model);
     }
 }

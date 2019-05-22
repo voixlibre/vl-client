@@ -23,10 +23,29 @@
             <td th:text="${campaign.getTopic()?.getTitle()}" >
         </tr>
         <tr>
+            <th>Question</th>
+            <td th:text="${campaign.getQuestion()}" >
+        </tr>
+        <tr>
             <th>Description</th>
             <td th:text="${campaign.getTopic()?.getSummary()}" >
         </tr>
     </table>
+
+
+    <div class="form-group">
+        <div class="form-check">
+            <h4>D'après vous, ce sujt peut-il être voté par référundum, ou devrait-on en laisser la responsabilité aux personnes compétentes et/ou spécialisées?</h4>
+            <input class="form-check-input" type="radio" name="responsability" id="no-opinion">
+            <label class="form-check-label" for="no-opinion">Sans opinion</label>
+            <input class="form-check-input" type="radio" name="responsability" id="government">
+            <label class="form-check-label" for="government">Gouvernement</label>
+            <input class="form-check-input" type="radio" name="responsability" id="referundum">
+            <label class="form-check-label" for="referundum">Référundum</label>
+        </div>
+
+    </div>
+
 
     <hr>
 

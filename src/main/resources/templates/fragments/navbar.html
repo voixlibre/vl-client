@@ -1,5 +1,5 @@
 <div th:fragment="navbar">
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-expand">
 
         <div class="dropdown">
             <button class="dropbtn">Menu<span class="caret"/></button>
@@ -7,13 +7,15 @@
                 <a href="/">Accueil</a>
                 <a href="/topics/">Liste des sujets</a>
                 <a href="/test/test">Test</a>
+
             </div>
         </div>
 
-        <div class="dropdown">
+        <div th:unless="!${user}" class="dropdown">
             <button class="dropbtn">Administrateur</button>
             <div class="dropdown-content">
                 <a href="/users/list">Liste des utilisateurs</a>
+                <a href="/admin/dashboard">Dashboard</a>
                 <a href="/test/index">index</a>
                 <a href="/test/blank">blank</a>
                 <a href="/test/buttons">buttons</a>
@@ -35,59 +37,8 @@
         </div>
 
 
-        <div class="dropdown">
-            <button class="dropbtn">Alimentation</button>
-            <div class="dropdown-content">
-                <a href="/">Alimentation</a>
-                <a href="/users/list">Agriculture</a>
-            </div>
-        </div>
 
 
-
-        <div class="dropdown">
-            <button class="dropbtn">Communication</button>
-            <div class="dropdown-content">
-                <a href="#">Langues</a>
-                <a href="#">Technologies</a>
-                <a href="#">Langues</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn">Economie</button>
-            <div class="dropdown-content">
-                <a href="#">Economie</a>
-                <a href="#">Comptes</a>
-                <a href="#">Emplois</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn">International</button>
-            <div class="dropdown-content">
-                <a href="#">Affaires étrangères</a>
-                <a href="#">international</a>
-                <a href="#">Europe</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn">Admin</button>
-            <div class="dropdown-content">
-                <a href="/admin/dashboard">Administrer les campagnes</a>
-                <a href="#">Administrer les campagnes</a>
-                <a href="#">Administration des utilisaterus</a>
-                <a href="#">Europe</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton" type="button">
-                Dropdown button
-            </button>
-            <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
-                <a class="dropdown-item" href="/admin/dashboard">Dashboard</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-        </div>
 
 
     </nav>

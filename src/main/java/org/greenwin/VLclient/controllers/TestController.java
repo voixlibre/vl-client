@@ -1,8 +1,6 @@
 package org.greenwin.VLclient.controllers;
 
-import org.greenwin.VLclient.beans.Option;
 import org.greenwin.VLclient.proxies.CampaignProxy;
-import org.greenwin.VLclient.proxies.TopicProxy;
 import org.greenwin.VLclient.services.CampaignResultsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,16 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Map;
-
 @Controller
 @RequestMapping("/test")
 public class TestController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    private TopicProxy topicProxy;
 
     @Autowired
     CampaignProxy campaignProxy;
@@ -30,8 +23,7 @@ public class TestController {
 
     @GetMapping("/index")
     public String index(){
-        for (Map.Entry<Option, Integer> entry : campaignResultsService.getResults(campaignProxy.getCampaignById(1)).entrySet())
-            logger.info("option: " + entry.getKey().getOption() + ": " + entry.getValue());
+
         return "test/index";
     }
 
@@ -54,5 +46,26 @@ public class TestController {
     public String forgotPasswords(){
         return "test/forgot-password";
     }
-    
+
+    @GetMapping("/template")
+    public String template(){
+        return "template";
+    }
+
+    /*
+    @RequestMapping(value="/seedstartermng", params={"addRow"})
+    public String addRow(final SeedStarter seedStarter, final BindingResult bindingResult) {
+        seedStarter.getRows().add(new Row());
+        return "seedstartermng";
+    }
+
+    @RequestMapping(value="/seedstartermng", params={"removeRow"})
+    public String removeRow(
+            final SeedStarter seedStarter, final BindingResult bindingResult,
+            final HttpServletRequest req) {
+        final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
+        seedStarter.getRows().remove(rowId.intValue());
+        return "seedstartermng";
+    }
+    */
 }

@@ -58,6 +58,7 @@
             <td><a th:href="@{'/campaign/id/'+ ${campaign.getId()}}" th:value="${campaign.getId()}" th:text="${campaign.getTopic()?.getTitle()}">
             <td th:text="${campaign.getStartDate()}" >
             <td th:text="${campaign.getEndDate()}" >
+            <td th:text="${campaign.startDate}" >
         </tr>
     </table>
 
@@ -70,16 +71,8 @@
 
 <section layout:fragment="content-right">
 
+
 </section>
 
-<!--
-<script>
-    $(document).ready(function(){
-
-        // jQuery methods go here...
-        $("li").hide();
-    });
-</script>
--->
 </body>
 </html>

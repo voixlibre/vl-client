@@ -24,13 +24,19 @@
             <th>Nom</th>
             <th>Email</th>
             <th>Anniversaire</th>
+            <th>Contact</th>
+            <th></th>
         </tr>
         <tr th:each="user : ${users}">
             <td th:text="${user.getFirstName()}">
             <td th:text="${user.getName()}">
             <td th:text="${user.getEmail()}">
             <td th:text="${user.getBirthday()}">
-            <td></td>
+            <td th:text="${user.getTel()}">
+            <td>
+            <a th:href="@{'/users/delete/' + ${user.getId()}}"> <i class="fa fa-trash"></i></a>
+            <a th:href="@{'/users/edit/' + ${user.getId()}}"><i class="fa fa-edit"></i></a>
+            </td>
         </tr>
     </table>
 

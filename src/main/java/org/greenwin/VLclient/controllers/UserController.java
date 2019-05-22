@@ -26,9 +26,10 @@ public class UserController {
     SessionController sessionController;
 
     @GetMapping("/list")
-    public String list(Model model){
+    public String list(Model model, HttpSession session){
         logger.info(getClass() + "### list method ###");
         model.addAttribute("users", appUserProxy.getAllUsers());
+        sessionController.addSessionAttributes(session, model);
         return "users/list";
     }
 

@@ -1,7 +1,9 @@
 package org.greenwin.VLclient.services;
 
 import feign.FeignException;
+import org.apache.catalina.Session;
 import org.greenwin.VLclient.beans.AppUser;
+import org.greenwin.VLclient.exception.UserAlreadyConnectedException;
 import org.greenwin.VLclient.proxies.AppUserProxy;
 import org.greenwin.VLclient.proxies.LogInProxy;
 import org.slf4j.Logger;
@@ -30,29 +32,44 @@ public class LoginService {
      * @param session
      * @return true or false
      */
-    public boolean UserAlreadyConnected(HttpSession session){
-        AppUser user;
-        try{
-            user = (AppUser)session.getAttribute("user");
+    public boolean userAlreadyConnected(HttpSession session){
+        if(session.getAttribute("user") != null)
+            return true;
+        else
+            return false;
+
+        /*
+            try{
+            (AppUser)session.getAttribute("user");
         }catch (NullPointerException e){
             logger.info("No user in session.");
             return false;
         }
         logger.info("A user is already connected.");
         return true;
+        */
+
     }
 
 
 
-    public AppUser signIn(AppUser user){
+    public AppUser signIn(AppUser user, HttpSession session){
+
+        if (userAlreadyConnected(session))
+            throw new UserAlreadyConnectedException();
 
         AppUser user1 = logInProxy.login(user);
         //TODO: cas où l'utilisateur n'existe pas
 
         //TODO: cas où pas de connexion avec le proxy
-        //TODO: cas où un utilisateur est déjà enregistré
 
         return user1;
+    }
+
+    public AppUser signUp(AppUser user, HttpSession session){
+        if (userAlreadyConnected(session))
+            throw new UserAlreadyConnectedException();
+        return logInProxy.saveUser(user);
     }
 
 }

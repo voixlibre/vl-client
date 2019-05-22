@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/topics")
 public class TopicController {
@@ -16,12 +18,16 @@ public class TopicController {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    TopicProxy topicProxy;
+    private TopicProxy topicProxy;
+
+    @Autowired
+    private SessionController sessionController;
 
     @GetMapping("/")
-    public String topics(Model model){
+    public String topics(Model model, HttpSession session){
         logger.info("Displaying the list of all topics");
         model.addAttribute("topics", topicProxy.getTopics());
+        sessionController.addSessionAttributes(session, model);
         return "topics/list";
     }
 
