@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+import static org.greenwin.VLclient.values.ValueType.*;
+
 @Component
-@FeignClient(name = "ms-campaign", url = "http://localhost:8642/campaign")
+@FeignClient(name = ZUUL_SERVER_NAME, url = ZUUL_LOCALHOST + MS_CAMPAIGN + API_CAMPAIGN)
 public interface CampaignProxy {
 
     @PostMapping("/")

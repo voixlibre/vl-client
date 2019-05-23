@@ -15,8 +15,11 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.greenwin.VLclient.values.ValueType.HOME;
+import static org.greenwin.VLclient.values.ValueType.SIGN;
+
 @Controller
-@RequestMapping("/sign")
+@RequestMapping(SIGN)
 public class SignController {
 
     @Autowired
@@ -36,7 +39,7 @@ public class SignController {
      */
     @GetMapping("/")
     public String signInForm(){
-        logger.info("signInForm");
+
         return "sign/sign";
     }
 
@@ -47,7 +50,7 @@ public class SignController {
      */
     @PostMapping("/signIn")
     public String signIn(@RequestParam String email1, @RequestParam String password1, Model model, HttpSession session){
-
+        logger.info(getClass() + "### signIn method ###");
         AppUser user = new AppUser();
         user.setEmail(email1);
         user.setPassword(password1);
@@ -55,8 +58,7 @@ public class SignController {
 
         if (user1 != null) {
             successfulAuthentication(session, model, user1);
-            sessionController.addSessionAttributes(session, model);
-            return "home";
+            return "redirect:" + HOME;
         }else {
             model.addAttribute("message", "L'identification a échoué.");
             sessionController.addSessionAttributes(session, model);
@@ -71,10 +73,22 @@ public class SignController {
      */
     @PostMapping("/signUp")
     public String signUp(@ModelAttribute AppUser user, HttpSession session, Model model){
+        logger.info(getClass() + "### signUp method ###");
         loginService.signUp(user, session);
         successfulAuthentication(session, model, user);
-        sessionController.addSessionAttributes(session, model);
-        return "home";
+        return HOME;
+    }
+
+    /**
+     * remove all session attributes
+     * @param session
+     * @return home page
+     */
+    @GetMapping("/out")
+    public String signOut(HttpSession session){
+        logger.info(getClass() + "### signOut method ###");
+        sessionController.removeSessionAttributes(session);
+        return "redirect:" + HOME;
     }
 
     /**
@@ -84,8 +98,11 @@ public class SignController {
      * @param user
      */
     public void successfulAuthentication(HttpSession session, Model model, AppUser user){
+        logger.info(getClass() + "### successfulAuthentication method ###");
         model.addAttribute("message", "Merci de vous être authentifié");
         session.setAttribute("user", user);
         sessionController.addSessionAttributes(session, model);
     }
+
+
 }

@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Map;
 
+import static org.greenwin.VLclient.values.ValueType.CAMPAIGN_RESULTS;
+
 @Controller
-@RequestMapping("/results")
+@RequestMapping(CAMPAIGN_RESULTS)
 public class CampaignResultsController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());

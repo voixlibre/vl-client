@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
+import static org.greenwin.VLclient.values.ValueType.VOTES;
+
 @Controller
-@RequestMapping("/votes")
+@RequestMapping(VOTES)
 public class VoteController {
 
     @Autowired
@@ -37,9 +39,6 @@ public class VoteController {
     public String vote(@RequestParam int optionId, @RequestParam int campaignId, Model model, HttpSession session){
         logger.info(getClass() + "### vote method ###");
         //TODO: vérifier que l'utilisateur est identifié
-        logger.info("campaignID: " + campaignId);
-        logger.info("optionID: " + optionId);
-
         //TODO: vérifie que l'utilisateur n'a pas déjà voté
         //TODO: vérifier que la période de vote est active
 

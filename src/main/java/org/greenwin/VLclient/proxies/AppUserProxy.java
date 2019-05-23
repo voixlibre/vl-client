@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.greenwin.VLclient.values.ValueType.*;
+
 @Component
 //@FeignClient(name = "zuul-server", url = "http://localhost:8640/users/")
-@FeignClient(name = "ms-users", url = "http://localhost:8640/users")
+@FeignClient(name = ZUUL_SERVER_NAME, url = ZUUL_LOCALHOST + MS_USERS + API_USERS)
 @RibbonClient(name = "ms-users")
 public interface AppUserProxy {
 

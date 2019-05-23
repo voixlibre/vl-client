@@ -16,10 +16,11 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
+
+import static org.greenwin.VLclient.values.ValueType.CAMPAIGNS;
 
 @Controller
-@RequestMapping("/campaign")
+@RequestMapping(CAMPAIGNS)
 public class CampaignController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -44,6 +45,12 @@ public class CampaignController {
         //TODO: vérifier s'il a voté et modifier le code en fonction
         model.addAttribute("campaign", campaignService.getCampaignById(id));
         return "campaign/description";
+    }
+
+    @GetMapping
+    public String allCampaign(Model model, HttpSession session){
+
+        return "campaign/list";
     }
 
     @GetMapping("/form")
@@ -80,6 +87,7 @@ public class CampaignController {
     }
 
     private void addOptionIfNotEmpty(Campaign campaign, String option){
+        logger.info("### addOptionIfNotEmpty method ###");
         Option o = new Option(option, campaign);
         logger.info("option: " + option);
         if (option != "") {

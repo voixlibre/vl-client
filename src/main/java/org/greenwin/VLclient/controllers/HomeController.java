@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static org.greenwin.VLclient.values.ValueType.HOME;
+
 @Controller
-@RequestMapping("/")
+@RequestMapping(HOME)
 public class HomeController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -39,12 +41,12 @@ public class HomeController {
     public String home(Model model, HttpSession session){
         logger.info(getClass() + "### home method ###");
         logger.info("user: " + session.getAttribute("user"));
-        //sessionController.addSessionAttributes(session, model);
+        sessionController.addSessionAttributes(session, model);
 
         //get most recent campaigns and assign each their respective topic
         List<Campaign> mostRecent = campaignProxy.getMostRecentCampaigns();
-        for (Campaign campaign : mostRecent)
-            campaign.setTopic(topicProxy.getTopicById(campaign.getTopicId()));
+        //for (Campaign campaign : mostRecent)
+        //    campaign.setTopic(topicProxy.getTopicById(campaign.getTopicId()));
         model.addAttribute("recentCampaigns", mostRecent);
         return "home";
     }

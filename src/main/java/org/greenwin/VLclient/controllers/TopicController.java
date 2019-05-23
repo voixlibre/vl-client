@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
+import static org.greenwin.VLclient.values.ValueType.TOPICS;
+
 @Controller
-@RequestMapping("/topics")
+@RequestMapping(TOPICS)
 public class TopicController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -25,7 +27,7 @@ public class TopicController {
 
     @GetMapping("/")
     public String topics(Model model, HttpSession session){
-        logger.info("Displaying the list of all topics");
+        logger.info("### topics method ###");
         model.addAttribute("topics", topicProxy.getTopics());
         sessionController.addSessionAttributes(session, model);
         return "topics/list";
@@ -33,11 +35,13 @@ public class TopicController {
 
     @GetMapping("/{id}")
     public Topic getTopicById(@PathVariable int id){
+        logger.info("### getTopicById method ###");
         return topicProxy.getTopicById(id);
     }
 
     @PostMapping("/")
     public Topic saveTopic(@ModelAttribute Topic topic){
+        logger.info("### saveTopic method ###");
         return topicProxy.saveTopic(topic);
     }
 

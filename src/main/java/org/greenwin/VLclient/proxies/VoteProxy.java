@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.awt.*;
 
+import static org.greenwin.VLclient.values.ValueType.*;
+
 @Component
-@FeignClient(name = "ms-campaign", url = "http://localhost:8642/votes")
+@FeignClient(name = ZUUL_SERVER_NAME, url = ZUUL_LOCALHOST + MS_CAMPAIGN + API_VOTES)
 public interface VoteProxy {
 
     @PostMapping(value = "/")

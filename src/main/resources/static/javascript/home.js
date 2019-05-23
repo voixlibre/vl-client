@@ -4,23 +4,23 @@ $(document).ready(function(){
         $(this).fadeToggle(5000);
     });
 
-    $("#ongoingTable").slideUp();
+    $("#ongoingTable").slideUp("slow", 800);
 
-    $("#comingSoonTable").slideUp();
+    $("#comingSoonTable").slideUp(800);
 
     $("#ongoingTitle").mouseenter(function(){
-        $("#ongoingTable").slideDown();
+        $("#ongoingTable").slideDown(800);
     });
 
     $("#ongoingTable").mouseleave(function(){
-        $("#ongoingTable").slideUp();
+        $("#ongoingTable").slideUp(800);
     });
 
     $("#comingSoonTitle").mouseenter(function(){
-        $("#comingSoonTable").slideDown();
+        $("#comingSoonTable").slideDown(800);
     });
 
     $("#comingSoonTable").mouseleave(function(){
-        $("#comingSoonTable").slideUp();
+        $("#comingSoonTable").slideUp(800);
     });
 });

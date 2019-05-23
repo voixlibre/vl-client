@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import static org.greenwin.VLclient.values.ValueType.*;
+
 @Component
-@FeignClient(name = "ms-campaign", url = "http://localhost:8642/options")
+@FeignClient(name = ZUUL_SERVER_NAME, url = ZUUL_LOCALHOST + MS_CAMPAIGN + API_OPTIONS )
 public interface OptionProxy {
 
     @GetMapping("/id/{id}")

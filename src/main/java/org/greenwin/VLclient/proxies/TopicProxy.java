@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+import static org.greenwin.VLclient.values.ValueType.*;
+
 @Component
 //@FeignClient(name = "zuul-server", url = "http://localhost:8652/")
-@FeignClient(name = "ms-topics", url = "http://localhost:8641/topics")
+@FeignClient(name = ZUUL_SERVER_NAME, url = ZUUL_LOCALHOST + MS_TOPICS + API_TOPICS)
 @RibbonClient(name = "ms-topics")
 public interface TopicProxy {
 

@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.jws.WebParam;
 import javax.servlet.http.HttpSession;
 
+import static org.greenwin.VLclient.values.ValueType.USERS;
+
 @Controller
-@RequestMapping("/users")
+@RequestMapping(USERS)
 public class UserController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
