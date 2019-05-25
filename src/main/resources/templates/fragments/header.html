@@ -16,7 +16,6 @@
                         <li><p th:unless="!${user}"> Bienvenue, [[${user.getFirstName()}]] <span> - </span> <a th:unless="!${user}" th:href="@{/sign/out}" th:text="Déconnexion"/></p></li>
                     </div>
                     <li><a th:unless="${user}" th:href="@{/sign/}">Identification</a></li>
-
                 </ul>
 
             </div>

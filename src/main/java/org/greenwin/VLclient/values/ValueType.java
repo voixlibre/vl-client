@@ -14,11 +14,16 @@ public class ValueType {
 
     //Zuul & MS URLs list
     public final static String ZUUL_LOCALHOST = "http://localhost:8652";
-    public final static String ZUUL_MYSERVER = "http://http://164.132.197.173:8652";
+    public final static String ZUUL_MYSERVER = "http://164.132.197.173:8652";
+
+    public final static String ZUUL_SERVER_NAME= "${zuul.server.name}";
+
     public final static String MS_TOPICS = "/ms-topics";
     public final static String MS_CAMPAIGN = "/ms-campaign";
     public final static String MS_USERS = "/ms-users";
-    public final static String ZUUL_SERVER_NAME= "${zuul.server.name}";
+
+    public final static String MS_AUTH= "/login";
+
     public final static String API_USERS= "/users";
     public final static String API_TOPICS= "/topics";
     public final static String API_CAMPAIGN= "/campaign";

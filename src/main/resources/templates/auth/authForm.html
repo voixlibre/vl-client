@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Template</title>
+
+</head>
+
+<body>
+
+<section layout:fragment="content-left">
+    <!-- INSERT CONTENT HERE -->
+
+</section>
+
+<section layout:fragment="content">
+    <!-- INSERT CONTENT HERE -->
+    <form th:action="@{'/auth/'}" method="post">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="username">username</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="password">password</label>
+                <input type="text" class="form-control" id="password" name="password">
+            </div>
+        </div>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
+
+
+    </form>
+
+</section>
+
+<section layout:fragment="content-right">
+
+    <!-- INSERT SOMETHING HERE -->
+
+</section>
+
+
+</body>
+</html>
