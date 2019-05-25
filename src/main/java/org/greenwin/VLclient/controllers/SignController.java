@@ -34,7 +34,7 @@ public class SignController {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
-     * access to to login form
+     * access to login form
      * @return model
      */
     @GetMapping("/")
@@ -44,7 +44,7 @@ public class SignController {
     }
 
     /**
-     * sends user data for checking
+     * send user data for checking
      * @param
      * @return
      */
@@ -92,7 +92,7 @@ public class SignController {
     }
 
     /**
-     * registering user in session and model
+     * register user in session and model
      * @param session
      * @param model
      * @param user

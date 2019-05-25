@@ -39,17 +39,19 @@ public class CampaignController {
 
 
     @GetMapping("/id/{id}")
-    public String campaignDescription(@PathVariable ("id") int id, Model model){
+    public String campaignDescription(@PathVariable ("id") int id, Model model, HttpSession session){
         logger.info("### campaignDescription method ###");
         //TODO: vérifier que l'utilisateur est identifié
         //TODO: vérifier s'il a voté et modifier le code en fonction
         model.addAttribute("campaign", campaignService.getCampaignById(id));
+        sessionController.addSessionAttributes(session, model);
         return "campaign/description";
     }
 
     @GetMapping
     public String allCampaign(Model model, HttpSession session){
-
+        //model.addAttribute("campaigns", campaignService.)
+        sessionController.addSessionAttributes(session, model);
         return "campaign/list";
     }
 
@@ -61,6 +63,18 @@ public class CampaignController {
         return "campaign/form";
     }
 
+    @PostMapping("/select")
+    public String selectCampaign(@RequestParam String startDate, @RequestParam String endDate, Model model, HttpSession session){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Campaign campaign  = new Campaign();
+        campaign.setStartDate(toLocalDate(startDate));
+        campaign.setEndDate(toLocalDate(endDate));
+        model.addAttribute("campaigns", campaignService.selectCampaigns(campaign));
+        logger.info("size: " + campaignService.selectCampaigns(campaign));
+        sessionController.addSessionAttributes(session, model);
+        return "campaign/list";
+    }
+
     @PostMapping("/")
     public String saveCampaign(@ModelAttribute Campaign campaign,
                                @RequestParam String start,
@@ -69,13 +83,13 @@ public class CampaignController {
                                @RequestParam String option2,
                                @RequestParam String option3,
                                @RequestParam String option4,
-                               Model model){
+                               Model model,
+                               HttpSession session
+    ){
         logger.info("### saveCampaign method ###");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate startDate = LocalDate.parse(start,formatter);
-        LocalDate endDate = LocalDate.parse(end, formatter);
-        campaign.setStartDate(startDate);
-        campaign.setEndDate(endDate);
+
+        campaign.setStartDate(toLocalDate(start));
+        campaign.setEndDate(toLocalDate(end));
         campaign.setOptions(new ArrayList<>());
         Campaign registeredCampaign = campaignService.saveCampaign(campaign);
         addOptionIfNotEmpty(registeredCampaign, option1);
@@ -83,6 +97,7 @@ public class CampaignController {
         addOptionIfNotEmpty(registeredCampaign, option3);
         addOptionIfNotEmpty(registeredCampaign, option4);
         model.addAttribute("campaign", registeredCampaign);
+        sessionController.addSessionAttributes(session, model);
         return "campaign/confirmation";
     }
 
@@ -94,5 +109,11 @@ public class CampaignController {
             o.setCampaignId(campaign.getId());
             optionService.saveOption(o);
         }
+    }
+
+    private LocalDate toLocalDate(String date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(date,formatter);
+        return localDate;
     }
 }

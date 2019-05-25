@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout2.html}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Template</title>
+
+</head>
+
+<body>
+
+
+<section layout:fragment="content">
+    <!-- INSERT CONTENT HERE -->
+
+
+    <form th:action="@{'/campaign/select/'}" method="post">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="startDate">startDate</label>
+                <input type="date" class="form-control" id="startDate" name="startDate">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="endDate">endDate</label>
+                <input type="date" class="form-control" id="endDate" name="endDate">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Filtrer</button>
+        </div>
+
+
+    </form>
+    
+    <p>Liste des campagnes</p>
+    
+    
+    
+    
+    <table class="table">
+        <tr>
+            <th>Titre</th>
+            <th>Description</th>
+        </tr>
+        <tr th:each="campaign : ${campaigns}">
+            <td th:text="${campaign.getQuestion()}">
+            <td th:text="${campaign.getTopic().getTitle()}">
+        </tr>
+    </table>
+</section>
+
+<section layout:fragment="content-right">
+
+    <!-- INSERT SOMETHING HERE -->
+
+</section>
+
+
+</body>
+</html>

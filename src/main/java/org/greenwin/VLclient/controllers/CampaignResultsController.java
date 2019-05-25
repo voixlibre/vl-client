@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 import static org.greenwin.VLclient.values.ValueType.CAMPAIGN_RESULTS;
@@ -27,10 +28,13 @@ public class CampaignResultsController {
     private CampaignProxy campaignProxy;
 
     @Autowired
+    SessionController sessionController;
+
+    @Autowired
     private CampaignResultsService campaignResultsService;
 
     @GetMapping("/{campaign_id}")
-    public String showResults(@PathVariable ("campaign_id") int id, Model model){
+    public String showResults(@PathVariable ("campaign_id") int id, Model model, HttpSession session){
         logger.info(getClass() + "### showResults method ###");
         int totalVotes;
         Campaign campaign = campaignProxy.getCampaignById(id);
@@ -38,6 +42,7 @@ public class CampaignResultsController {
         model.addAttribute("campaign", campaign);
         model.addAttribute("results", results);
         model.addAttribute("totalVotes", campaign.getVotes().size());
+        sessionController.addSessionAttributes(session, model);
         return "campaign/results";
     }
 }

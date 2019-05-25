@@ -34,13 +34,15 @@ public class TopicController {
     }
 
     @GetMapping("/{id}")
-    public Topic getTopicById(@PathVariable int id){
+    public Topic getTopicById(@PathVariable int id, Model model, HttpSession session){
         logger.info("### getTopicById method ###");
+        sessionController.addSessionAttributes(session, model);
         return topicProxy.getTopicById(id);
     }
 
     @PostMapping("/")
-    public Topic saveTopic(@ModelAttribute Topic topic){
+    public Topic saveTopic(@ModelAttribute Topic topic, Model model, HttpSession session){
+        sessionController.addSessionAttributes(session, model);
         logger.info("### saveTopic method ###");
         return topicProxy.saveTopic(topic);
     }

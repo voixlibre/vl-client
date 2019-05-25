@@ -44,5 +44,7 @@ public class CampaignService {
         return campaignProxy.updateCampaign(campaign);
     }
 
-
+    public List<Campaign> selectCampaigns(Campaign campaign){
+        return campaignProxy.selectCampaign(campaign);
+    }
 }

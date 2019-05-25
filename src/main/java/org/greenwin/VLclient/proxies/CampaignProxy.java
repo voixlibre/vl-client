@@ -29,4 +29,7 @@ public interface CampaignProxy {
 
     @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     Campaign updateCampaign(@RequestBody Campaign c);
+
+    @PostMapping(value = "/select", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    List<Campaign> selectCampaign(@RequestBody Campaign campaign);
 }

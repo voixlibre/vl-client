@@ -19,5 +19,5 @@ import static org.greenwin.VLclient.values.ValueType.*;
 public interface AuthProxy {
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    HttpServletResponse login(UserAuthentication authentication);
+    void login(UserAuthentication authentication);
 }

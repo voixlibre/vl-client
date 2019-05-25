@@ -10,24 +10,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
 
+
+    @Autowired
+    private SessionController sessionController;
+
     @Autowired
     private AuthProxy authProxy;
 
     @GetMapping("/")
-    public String authForm(){
+    public String authForm(HttpSession session, Model model){
+        sessionController.addSessionAttributes(session, model);
+
         return "auth/authForm";
     }
 
     @PostMapping("/")
-    public String auth(@ModelAttribute UserAuthentication authentication, Model model){
+    public String auth(@ModelAttribute UserAuthentication authentication, Model model, HttpSession session){
 
         Logger logger = LoggerFactory.getLogger(this.getClass());
+        sessionController.addSessionAttributes(session, model);
 
             authProxy.login(authentication);
 

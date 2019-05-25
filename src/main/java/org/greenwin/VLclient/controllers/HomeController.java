@@ -41,7 +41,6 @@ public class HomeController {
     public String home(Model model, HttpSession session){
 
         logger.info(getClass() + "### home method ###");
-        logger.info("user: " + session.getAttribute("user"));
         sessionController.addSessionAttributes(session, model);
 
         //get most recent campaigns and assign each their respective topic
