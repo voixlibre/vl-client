@@ -29,6 +29,7 @@ public class ValueType {
     public final static String API_CAMPAIGN= "/campaign";
     public final static String API_VOTES= "/votes";
     public final static String API_OPTIONS= "/options";
+    public final static String API_CATEGORIES= "/categories";
 
 
 

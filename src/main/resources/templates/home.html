@@ -31,13 +31,13 @@
     <h3 th:id="ongoingTitle">Campagnes en cours <span class="caret"/></h3>
     <table th:id="ongoingTable" class="table table-bordered table-striped">
         <tr>
-            <th>Sujet</th>
+            <th>Catégorie</th>
             <th>Question</th>
             <th>Date de début</th>
             <th>Date de fin</th>
         </tr>
         <tr th:each="campaign : ${recentCampaigns}">
-            <td th:text="${campaign.getTopic()?.getTitle()}">
+            <td th:text="${campaign.getCategory()?.getName()}">
             <td><a th:href="@{'/campaign/id/'+ ${campaign.getId()}}" th:value="${campaign.getId()}" th:text="${campaign.getQuestion()}">
             <td th:text="${campaign.getStartDate()}" >
             <td th:text="${campaign.getEndDate()}" >
@@ -48,17 +48,18 @@
 
         <h3 id="comingSoonTitle">Campagnes à venir <span class="caret"/></h3>
 
-    <table id="comingSoonTable" class="table table-bordered table-striped">
+    <table th:id="comingSoonTable" class="table table-bordered table-striped">
         <tr>
-            <th>Sujet</th>
+            <th>Catégorie</th>
+            <th>Question</th>
             <th>Date de début</th>
             <th>Date de fin</th>
         </tr>
         <tr th:each="campaign : ${recentCampaigns}">
-            <td><a th:href="@{'/campaign/id/'+ ${campaign.getId()}}" th:value="${campaign.getId()}" th:text="${campaign.getTopic()?.getTitle()}">
+            <td th:text="${campaign.getCategory()?.getName()}">
+            <td><a th:href="@{'/campaign/id/'+ ${campaign.getId()}}" th:value="${campaign.getId()}" th:text="${campaign.getQuestion()}">
             <td th:text="${campaign.getStartDate()}" >
             <td th:text="${campaign.getEndDate()}" >
-            <td th:text="${campaign.startDate}" >
         </tr>
     </table>
 

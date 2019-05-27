@@ -1,10 +1,15 @@
 package org.greenwin.VLclient.controllers;
 
 import org.greenwin.VLclient.beans.AppUser;
+import org.greenwin.VLclient.beans.Campaign;
+import org.greenwin.VLclient.beans.Option;
 import org.greenwin.VLclient.beans.Vote;
+import org.greenwin.VLclient.exception.CampaignNotValidException;
+import org.greenwin.VLclient.exception.UserNotAuthenticatedException;
 import org.greenwin.VLclient.proxies.CampaignProxy;
 import org.greenwin.VLclient.proxies.OptionProxy;
 import org.greenwin.VLclient.proxies.VoteProxy;
+import org.greenwin.VLclient.services.VoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
+import java.time.LocalDate;
+
 import static org.greenwin.VLclient.values.ValueType.VOTES;
 
 @Controller
@@ -21,7 +28,7 @@ import static org.greenwin.VLclient.values.ValueType.VOTES;
 public class VoteController {
 
     @Autowired
-    private VoteProxy voteProxy;
+    private VoteService voteService;
 
     @Autowired
     private OptionProxy optionProxy;
@@ -37,33 +44,26 @@ public class VoteController {
 
     @PostMapping("/")
     public String vote(@RequestParam int optionId, @RequestParam int campaignId, Model model, HttpSession session){
-        logger.info(getClass() + "### vote method ###");
-        //TODO: vérifier que l'utilisateur est identifié
-        //TODO: vérifie que l'utilisateur n'a pas déjà voté
-        //TODO: vérifier que la période de vote est active
+        logger.info("### vote method ###");
+        String message;
+        Option option =  optionProxy.getOptionById(optionId);
 
-        session.setAttribute("user", new AppUser());
-        if(session.getAttribute("user") == null) {
-                model.addAttribute("message", "Veuillez s'il vous plait vous authentifier");
+        try{
+            Vote vote = voteService.saveVote(campaignId, option, session);
+            message = "Votre vote a été pris en compte.";
+            model.addAttribute("vote", vote);
+        }catch (UserNotAuthenticatedException e){
+            message = "Veuillez s'il vous plait vous authentifier.";
             sessionController.addSessionAttributes(session, model);
-                return "sign/sign";
+            return "sign/sign";
+        }catch (CampaignNotValidException e){
+            message = "La période de vote n'est pas en cours.";
         }
 
-        Vote vote = new Vote();
-        vote.setCampaign(campaignProxy.getCampaignById(campaignId));
-        vote.setOption(optionProxy.getOptionById(optionId));
-        logger.info("campaign id :" + vote.getCampaign().getId());
+        model.addAttribute("message", message);
+        sessionController.addSessionAttributes(session, model);
 
-        try {
-            Vote voteConfirmation = voteProxy.saveVote(vote);
-            model.addAttribute("message", "Votre vote a été pris en compte.");
-            model.addAttribute("vote", voteConfirmation);
-            sessionController.addSessionAttributes(session, model);
-            return "votes/results";
-        }catch (Exception e){
-            sessionController.addSessionAttributes(session, model);
-            return "votes/failure";
-        }
+        return "votes/results";
     }
 
 }

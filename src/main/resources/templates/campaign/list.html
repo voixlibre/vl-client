@@ -20,11 +20,11 @@
 
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="startDate">startDate</label>
+                <label for="startDate">Début de période</label>
                 <input type="date" class="form-control" id="startDate" name="startDate">
             </div>
             <div class="form-group col-md-6">
-                <label for="endDate">endDate</label>
+                <label for="endDate">Fin de période</label>
                 <input type="date" class="form-control" id="endDate" name="endDate">
             </div>
         </div>
@@ -40,14 +40,20 @@
     
     
     <table class="table">
-        <tr>
-            <th>Titre</th>
-            <th>Description</th>
-        </tr>
-        <tr th:each="campaign : ${campaigns}">
-            <td th:text="${campaign.getQuestion()}">
-            <td th:text="${campaign.getTopic().getTitle()}">
-        </tr>
+        <table th:id="comingSoonTable" class="table table-bordered table-striped">
+            <tr>
+                <th>Catégorie</th>
+                <th>Question</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+            </tr>
+            <tr th:each="campaign : ${campaigns}">
+                <td th:text="${campaign.getCategory()?.getName()}">
+                <td><a th:href="@{'/campaign/id/'+ ${campaign.getId()}}" th:value="${campaign.getId()}" th:text="${campaign.getQuestion()}">
+                <td th:text="${campaign.getStartDate()}" >
+                <td th:text="${campaign.getEndDate()}" >
+            </tr>
+        </table>
     </table>
 </section>
 

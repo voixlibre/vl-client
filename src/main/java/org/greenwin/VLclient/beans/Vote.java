@@ -21,5 +21,8 @@ public class Vote {
 
     private  Campaign campaign;
 
+    private int campaignId;
+
     private Option option;
+
 }

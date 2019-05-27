@@ -3,6 +3,8 @@ package org.greenwin.VLclient.proxies;
 import org.greenwin.VLclient.beans.Vote;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,4 +18,7 @@ public interface VoteProxy {
 
     @PostMapping(value = "/")
     Vote saveVote(@RequestBody Vote vote);
+
+    @GetMapping("/user/{userId}/campaign/{campaignId}")
+    Vote getVoteByUserAndCampaign(@PathVariable("userId") int userId, @PathVariable("campaignId") int campaignId);
 }

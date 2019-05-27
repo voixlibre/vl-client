@@ -24,24 +24,30 @@ public class SessionController {
         return new SessionController();
     }
 
-    public void init(HttpSession session){
-
-    }
-
+    /**
+     * insert user and all other session properties in the model
+     * @param session
+     * @param model
+     */
     public void addSessionAttributes(HttpSession session, Model model){
         logger.info(getClass() + "### addSessionAttributes method ###");
         try {
             AppUser user = (AppUser) session.getAttribute("user");
             model.addAttribute("user", user);
         }catch (NullPointerException e){
-            logger.info("No user logged in.");
+            logger.warn("No user logged in.");
         }
     }
 
+    /**
+     * remove all session attributes
+     * @param session
+     */
     public void removeSessionAttributes(HttpSession session){
         logger.info(getClass() + "### removeSessionAttributes method ###");
         session.removeAttribute("user");
     }
+
 
 
 

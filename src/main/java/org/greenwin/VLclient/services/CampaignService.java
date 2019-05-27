@@ -5,9 +5,7 @@ import org.greenwin.VLclient.proxies.CampaignProxy;
 import org.greenwin.VLclient.proxies.TopicProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -23,17 +21,6 @@ public class CampaignService {
         //TODO: vérifier que l'utilisateur est identifié
         //TODO: vérifier s'il a voté et modifier le code en fonction
         return campaignProxy.getCampaignById(id);
-    }
-
-    /*
-    public List<Campaign> getAllCampaigns(){
-        return campaignProxy
-    }
-    */
-
-    public String form(Model model, HttpSession session){
-        model.addAttribute("topics", topicProxy.getTopics());
-        return "campaign/form";
     }
 
     public Campaign saveCampaign(Campaign campaign){

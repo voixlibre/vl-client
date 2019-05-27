@@ -18,6 +18,8 @@ public class Campaign {
 
     String question;
 
+    Category category;
+
     private Topic topic;
 
     private int TopicId;

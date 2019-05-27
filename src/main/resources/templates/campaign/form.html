@@ -24,10 +24,10 @@
         <div class="form-row">
             <!--select Topic -->
             <div class="form-group col-md-4">
-                <label for="category">Sujet</label>
-                <select id="category" class="form-control" name="topicId">
+                <label for="category">Catégorie</label>
+                <select id="category" class="form-control" name="categoryId">
                     <option selected>Choisissez...</option>
-                    <option th:each="topic : ${topics}" th:text="${topic.getTitle()}" th:value="${topic.getId()}"></option>
+                    <option th:each="category : ${categories}" th:text="${category.getName()}" th:value="${category.getId()}"></option>
                 </select>
             </div>
             <!-- enter Question -->

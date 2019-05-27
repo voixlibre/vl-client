@@ -19,8 +19,8 @@
 
     <table class="table">
         <tr>
-            <th>Sujet</th>
-            <td th:text="${campaign.getTopic()?.getTitle()}" >
+            <th>Catégorie</th>
+            <td th:text="${campaign.getCategory()?.getName()}" >
         </tr>
         <tr>
             <th>Question</th>
@@ -35,7 +35,7 @@
 
     <div class="form-group">
         <div class="form-check">
-            <h4>D'après vous, ce sujt peut-il être voté par référundum, ou devrait-on en laisser la responsabilité aux personnes compétentes et/ou spécialisées?</h4>
+            <h4>D'après vous, ce sujet peut-il être voté par référundum, ou devrait-on en laisser la responsabilité aux personnes compétentes et/ou spécialisées?</h4>
             <input class="form-check-input" type="radio" name="responsability" id="no-opinion">
             <label class="form-check-label" for="no-opinion">Sans opinion</label>
             <input class="form-check-input" type="radio" name="responsability" id="government">
@@ -56,7 +56,9 @@
                 <label th:for="${option.getId()}" th:text="${option.getOption()}" />
                 <input type="hidden" name= "campaignId" th:value="${campaign.getId()}">
             </div>
-        <input class="btn btn-default btn-primary" type="submit" value="Voter">
+            <input th:unless="!${user}" class="btn btn-default btn-primary" type="submit" value="Voter" >
+            <h4 th:unless="${user}">Vous devez être identifié pour pouvoir voter</h4>
+
         </div>
     </form>
 
