@@ -1,6 +1,6 @@
 package org.greenwin.VLclient.controllers;
 
-import org.greenwin.VLclient.beans.AppUser;
+import feign.Response;
 import org.greenwin.VLclient.beans.UserAuthentication;
 import org.greenwin.VLclient.proxies.AuthProxy;
 import org.slf4j.Logger;
@@ -36,7 +36,10 @@ public class AuthController {
         Logger logger = LoggerFactory.getLogger(this.getClass());
         sessionController.addSessionAttributes(session, model);
 
-            authProxy.login(authentication);
+        Response response = authProxy.login(authentication);
+        logger.info("auth: " + response.headers().get("Authorization"));
+        //String cookies = response.headers().get("Authorization");
+        //Cookie cookie = new Cookie("Authorization", cookies);
 
         return "auth/auth-headers";
     }

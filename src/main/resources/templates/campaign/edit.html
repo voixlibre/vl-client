@@ -19,21 +19,21 @@
     <!-- INSERT CONTENT HERE -->
 
 
-    <form th:action="@{'/campaign/'}" method="post">
+    <form th:action="@{'/campaign/update/' + ${campaign.getId()}}" method="post">
 
         <div class="form-row">
             <!--select Topic -->
             <div class="form-group col-md-4">
                 <label for="category">Catégorie</label>
                 <select id="category" class="form-control" name="categoryId">
-                    <option value="0" selected>Choisissez...</option>
-                    <option th:each="category : ${categories}" th:text="${category.getName()}" th:value="${category.getId()}"></option>
+                    <option selected>Choisissez...</option>
+                    <option th:each="category : ${categories}" th:text="${category.getName()}" th:value="${category.getId()}" th:selected="${campaign.getCategory().is}"></option>
                 </select>
             </div>
             <!-- enter Question -->
             <div class="form-group col-md-8">
                 <label for="question">Question</label>
-                <textarea type="text" class="form-control" id="question" placeholder="Question" name="question" th:text="${campaign?.getQuestion()}"></textarea>
+                <textarea type="text" class="form-control" id="question" placeholder="Question" name="question" th:text="${campaign.getQuestion()}"></textarea>
             </div>
         </div>
 
@@ -49,11 +49,11 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="startDate">Date de commencement</label>
-                <input type="date" class="form-control" id="startDate" name="start">
+                <input type="date" class="form-control" id="startDate" name="start" th:value="${campaign.getStartDate()}">
             </div>
             <div class="form-group col-md-6">
                 <label for="startDate">Date de commencement</label>
-                <input type="date" class="form-control" id="endDate" name="end">
+                <input type="date" class="form-control" id="endDate" name="end" th:value="${campaign.getEndDate()}">
             </div>
         </div>
 
@@ -85,7 +85,7 @@
             </div>
         </div>
         <div class="form-row">
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <button type="submit" class="btn btn-primary">Mettre à jour</button>
         </div>
 
 

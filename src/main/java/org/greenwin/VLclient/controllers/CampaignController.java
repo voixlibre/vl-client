@@ -12,9 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -65,24 +68,33 @@ public class CampaignController {
     public String form(Model model, HttpSession session){
         logger.info("### form method ###");
         model.addAttribute("categories", categoryService.getAllCategories());
+        //initialize startDate and endDate
+        model.addAttribute("start", LocalDate.now());
+        model.addAttribute("end", LocalDate.now());
         sessionController.addSessionAttributes(session, model);
         return "campaign/form";
     }
 
     @PostMapping("/select")
-    public String selectCampaign(@RequestParam String startDate, @RequestParam String endDate, Model model, HttpSession session){
+    public String selectCampaign(@Valid @RequestParam String startDate, @Valid @RequestParam String endDate, BindingResult bindingResult, Model model, HttpSession session){
         Campaign campaign  = new Campaign();
         campaign.setStartDate(toLocalDate(startDate));
         campaign.setEndDate(toLocalDate(endDate));
         model.addAttribute("campaigns", campaignService.selectCampaigns(campaign));
         logger.info("size: " + campaignService.selectCampaigns(campaign));
         sessionController.addSessionAttributes(session, model);
+
+        if (bindingResult.hasErrors()) {
+            return "campaign/form";
+        }
+
         return "campaign/list";
     }
 
+
     @PostMapping("/")
     public String saveCampaign(@ModelAttribute Campaign campaign,
-                               @RequestParam int categoryId,
+                               @RequestParam String categoryId,
                                @RequestParam String start,
                                @RequestParam String end,
                                @RequestParam String option1,
@@ -94,9 +106,12 @@ public class CampaignController {
     ){
         logger.info("### saveCampaign method ###");
 
+        if(categoryId == "0")
+            return "campaign/form";
+
         campaign.setStartDate(toLocalDate(start));
         campaign.setEndDate(toLocalDate(end));
-        campaign.setCategory(categoryService.getCategoryById(categoryId));
+        campaign.setCategory(categoryService.getCategoryById(Integer.parseInt(categoryId)));
         campaign.setOptions(new ArrayList<>());
         Campaign registeredCampaign = campaignService.saveCampaign(campaign);
         addOptionIfNotEmpty(registeredCampaign, option1);
@@ -105,6 +120,20 @@ public class CampaignController {
         addOptionIfNotEmpty(registeredCampaign, option4);
         model.addAttribute("campaign", registeredCampaign);
         sessionController.addSessionAttributes(session, model);
+        return "campaign/confirmation";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editCampaign(@PathVariable ("id") int id, Model model, HttpSession session){
+        Campaign campaign = campaignService.getCampaignById(id);
+        model.addAttribute("campaign", campaign);
+        sessionController.addSessionAttributes(session, model);
+        return "campaign/edit";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateCampaign(@ModelAttribute Campaign campaign, Model model, HttpSession session){
+        campaignService.updateCampaign(campaign);
         return "campaign/confirmation";
     }
 

@@ -14,8 +14,6 @@
 
 <section layout:fragment="content">
     <!-- INSERT CONTENT HERE -->
-
-
     <form th:action="@{'/campaign/select/'}" method="post">
 
         <div class="form-row">
@@ -28,17 +26,15 @@
                 <input type="date" class="form-control" id="endDate" name="endDate">
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Filtrer</button>
+        <div class="form-row">
+            <button type="submit" class="form-control-static btn btn-primary">Filtrer</button>
         </div>
-
-
     </form>
+
+    <hr>
     
     <p>Liste des campagnes</p>
-    
-    
-    
-    
+
     <table class="table">
         <table th:id="comingSoonTable" class="table table-bordered table-striped">
             <tr>

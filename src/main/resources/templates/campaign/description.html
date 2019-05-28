@@ -66,7 +66,8 @@
 
 <section layout:fragment="content-right">
     <a th:href="@{'/results/' + ${campaign.getId()}}" th:text="'Voir les résultats'"></a>
-    <!-- <a th:href="@{'/campaign/id/'+ ${campaign.getId()}}" th:value="${campaign.getId()}" th:text="${campaign.getTopic()?.getTitle()}"> -->
+    <a th:href="@{'/campaign/edit/' + ${campaign.getId()}}" th:text="'Modifier la campagne'"></a>
+
 </section>
 
 </body>

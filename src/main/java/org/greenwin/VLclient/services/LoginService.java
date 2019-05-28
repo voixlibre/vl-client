@@ -22,9 +22,6 @@ public class LoginService {
     @Autowired
     LogInProxy logInProxy;
 
-    @Autowired
-    AppUserProxy userProxy;
-
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
@@ -50,8 +47,6 @@ public class LoginService {
         */
 
     }
-
-
 
     public AppUser signIn(AppUser user, HttpSession session){
 

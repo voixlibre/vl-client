@@ -1,5 +1,6 @@
 package org.greenwin.VLclient.proxies;
 
+import feign.Response;
 import org.greenwin.VLclient.beans.AppUser;
 import org.greenwin.VLclient.beans.UserAuthentication;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
@@ -19,5 +20,5 @@ import static org.greenwin.VLclient.values.ValueType.*;
 public interface AuthProxy {
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    void login(UserAuthentication authentication);
+    Response login(UserAuthentication authentication);
 }

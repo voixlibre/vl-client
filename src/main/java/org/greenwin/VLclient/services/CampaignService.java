@@ -18,8 +18,6 @@ public class CampaignService {
     TopicProxy topicProxy;
 
     public Campaign getCampaignById(int id){
-        //TODO: vérifier que l'utilisateur est identifié
-        //TODO: vérifier s'il a voté et modifier le code en fonction
         return campaignProxy.getCampaignById(id);
     }
 
