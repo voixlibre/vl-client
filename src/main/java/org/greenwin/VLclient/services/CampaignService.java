@@ -1,6 +1,7 @@
 package org.greenwin.VLclient.services;
 
 import org.greenwin.VLclient.beans.Campaign;
+import org.greenwin.VLclient.exception.WrongPeriodDefinitionException;
 import org.greenwin.VLclient.proxies.CampaignProxy;
 import org.greenwin.VLclient.proxies.TopicProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class CampaignService {
     }
 
     public List<Campaign> selectCampaigns(Campaign campaign){
+        if (campaign.getStartDate().isAfter(campaign.getEndDate()))
+            throw new WrongPeriodDefinitionException();
         return campaignProxy.selectCampaign(campaign);
     }
 }

@@ -3,6 +3,7 @@ package org.greenwin.VLclient.controllers;
 import org.greenwin.VLclient.beans.AppUser;
 import org.greenwin.VLclient.beans.Campaign;
 import org.greenwin.VLclient.beans.Option;
+import org.greenwin.VLclient.exception.WrongPeriodDefinitionException;
 import org.greenwin.VLclient.proxies.VoteProxy;
 import org.greenwin.VLclient.services.CampaignService;
 import org.greenwin.VLclient.services.CategoryService;
@@ -76,18 +77,17 @@ public class CampaignController {
     }
 
     @PostMapping("/select")
-    public String selectCampaign(@Valid @RequestParam String startDate, @Valid @RequestParam String endDate, BindingResult bindingResult, Model model, HttpSession session){
+    public String selectCampaign(@RequestParam String startDate, @RequestParam String endDate, Model model, HttpSession session){
         Campaign campaign  = new Campaign();
         campaign.setStartDate(toLocalDate(startDate));
         campaign.setEndDate(toLocalDate(endDate));
-        model.addAttribute("campaigns", campaignService.selectCampaigns(campaign));
-        logger.info("size: " + campaignService.selectCampaigns(campaign));
-        sessionController.addSessionAttributes(session, model);
-
-        if (bindingResult.hasErrors()) {
-            return "campaign/form";
+        try {
+            model.addAttribute("campaigns", campaignService.selectCampaigns(campaign));
+        }catch (WrongPeriodDefinitionException e){
+            model.addAttribute("error", "Veuillez entrer une période valide");
         }
 
+        sessionController.addSessionAttributes(session, model);
         return "campaign/list";
     }
 
