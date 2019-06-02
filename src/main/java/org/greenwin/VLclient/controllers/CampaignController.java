@@ -2,6 +2,7 @@ package org.greenwin.VLclient.controllers;
 
 import org.greenwin.VLclient.beans.AppUser;
 import org.greenwin.VLclient.beans.Campaign;
+import org.greenwin.VLclient.beans.Category;
 import org.greenwin.VLclient.beans.Option;
 import org.greenwin.VLclient.exception.WrongPeriodDefinitionException;
 import org.greenwin.VLclient.proxies.VoteProxy;
@@ -13,15 +14,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.greenwin.VLclient.values.ValueType.CAMPAIGNS;
 
@@ -47,6 +47,13 @@ public class CampaignController {
     private OptionService optionService;
 
 
+    /**
+     * display the description of the campaign, and allows the vote only if user is logged in
+     * @param id
+     * @param model
+     * @param session
+     * @return
+     */
     @GetMapping("/id/{id}")
     public String campaignDescription(@PathVariable ("id") int id, Model model, HttpSession session){
         logger.info("### campaignDescription method ###");
@@ -58,6 +65,12 @@ public class CampaignController {
         return "campaign/description";
     }
 
+    /**
+     * display the page with the list of campaigns, and a form to filter them
+     * @param model
+     * @param session
+     * @return
+     */
     @GetMapping
     public String allCampaign(Model model, HttpSession session){
         //model.addAttribute("campaigns", campaignService.)
@@ -65,6 +78,12 @@ public class CampaignController {
         return "campaign/list";
     }
 
+    /**
+     * display the form to save a new campaign
+     * @param model
+     * @param session
+     * @return
+     */
     @GetMapping("/form")
     public String form(Model model, HttpSession session){
         logger.info("### form method ###");
@@ -77,21 +96,32 @@ public class CampaignController {
     }
 
     @PostMapping("/select")
-    public String selectCampaign(@RequestParam String startDate, @RequestParam String endDate, Model model, HttpSession session){
+    public String selectCampaign(@RequestParam String startDate, @RequestParam String endDate, @RequestParam String categoryId,  Model model, HttpSession session){
         Campaign campaign  = new Campaign();
-        campaign.setStartDate(toLocalDate(startDate));
-        campaign.setEndDate(toLocalDate(endDate));
-        try {
-            model.addAttribute("campaigns", campaignService.selectCampaigns(campaign));
-        }catch (WrongPeriodDefinitionException e){
-            model.addAttribute("error", "Veuillez entrer une période valide");
-        }
+        if(categoryId != "0")
+            campaign.setCategory(categoryService.getCategoryById(Integer.parseInt(categoryId)));
+
+        checkSearchValidity(campaign, startDate, endDate, model);
+
 
         sessionController.addSessionAttributes(session, model);
         return "campaign/list";
     }
 
-
+    /**
+     * fetch all form fields and make a campaign out of it
+     * @param campaign
+     * @param categoryId
+     * @param start
+     * @param end
+     * @param option1
+     * @param option2
+     * @param option3
+     * @param option4
+     * @param model
+     * @param session
+     * @return
+     */
     @PostMapping("/")
     public String saveCampaign(@ModelAttribute Campaign campaign,
                                @RequestParam String categoryId,
@@ -123,6 +153,13 @@ public class CampaignController {
         return "campaign/confirmation";
     }
 
+    /**
+     * dispplay the specified campaign, and allows its change
+     * @param id
+     * @param model
+     * @param session
+     * @return
+     */
     @GetMapping("/edit/{id}")
     public String editCampaign(@PathVariable ("id") int id, Model model, HttpSession session){
         Campaign campaign = campaignService.getCampaignById(id);
@@ -137,6 +174,26 @@ public class CampaignController {
         return "campaign/confirmation";
     }
 
+    /**
+     * displays a list of campaigns that contain keyword parameter
+     * @param keyword
+     * @return html page: "campaign/list"
+     */
+    @PostMapping("/search")
+    public String searchCampaign(@RequestParam String keyword, Model model, HttpSession session){
+        List<Campaign> campaigns = campaignService.searchCampaign(keyword);
+        model.addAttribute("campaigns", campaigns);
+        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("keyword", keyword);
+        sessionController.addSessionAttributes(session, model);
+        return "campaign/list";
+    }
+
+    /**
+     * save an option only if not empty
+     * @param campaign
+     * @param option
+     */
     private void addOptionIfNotEmpty(Campaign campaign, String option){
         logger.info("### addOptionIfNotEmpty method ###");
         Option o = new Option(option, campaign);
@@ -147,9 +204,41 @@ public class CampaignController {
         }
     }
 
+    /**
+     * convert a string into a localdate
+     * @param date
+     * @return
+     */
     private LocalDate toLocalDate(String date){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(date,formatter);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate localDate = LocalDate.parse(date, formatter);
         return localDate;
+    }
+
+    /**
+     * try to set start and end date to the campaign, send error message if start date is after end date,
+     * or set minimum start date and maximum end date if category exists.
+     * This way, at least one criteria exists for search purpose
+     * @param campaign
+     * @param startDate
+     * @param endDate
+     * @param model
+     */
+    private void checkSearchValidity(Campaign campaign, String startDate, String endDate, Model model){
+        try {
+            campaign.setStartDate(toLocalDate(startDate));
+            campaign.setEndDate(toLocalDate(endDate));
+            model.addAttribute("campaigns", campaignService.selectCampaigns(campaign));
+        }catch (DateTimeParseException e){
+            if(campaign.getCategory() == null)
+                model.addAttribute("error", "Veuillez entrer une date valide.");
+            else{
+                campaign.setStartDate(LocalDate.MIN);
+                campaign.setEndDate(LocalDate.MAX);
+            }
+
+        }catch (WrongPeriodDefinitionException e){
+            model.addAttribute("error", "Veuillez entrer une période valide.");
+        }
     }
 }

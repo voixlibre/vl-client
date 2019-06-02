@@ -16,29 +16,36 @@
     <!-- INSERT CONTENT HERE -->
     <form th:action="@{'/campaign/select/'}" method="post">
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
+        <div class="row">
+            <div class="form-group col-md-3">
                 <label for="startDate">Début de période</label>
                 <input type="date" class="form-control" id="startDate" name="startDate">
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-3">
                 <label for="endDate">Fin de période</label>
                 <input type="date" class="form-control" id="endDate" name="endDate">
             </div>
-        </div>
-        <div class="form-row">
-            <button type="submit" class="form-control-static btn btn-primary">Filtrer</button>
+            <div class="form-group col-md-2">
+                <label for="category">Catégorie</label>
+                <select id="category" class="form-control" name="categoryId">
+                    <option value="0" selected>Choisissez...</option>
+                    <option th:each="category : ${categories}" th:text="${category.getName()}" th:value="${category.getId()}"></option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <button type="submit" class="form-control-static btn btn-primary">Filtrer</button>
+            </div>
         </div>
     </form>
 
     <hr>
-    
-    <p>Liste des campagnes</p>
 
-    <h1 th:text="${error}" >
+    <h4 th:unless="${error}" th:text="${campaigns?.size()} + ' réponses correspondent à votre recherche: \'' + ${keyword} + '\' '"></h4>
+
+        <h2 th:text="${error}"></h2>
 
     <table class="table">
-        <table th:id="comingSoonTable" class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped">
             <tr>
                 <th>Catégorie</th>
                 <th>Question</th>

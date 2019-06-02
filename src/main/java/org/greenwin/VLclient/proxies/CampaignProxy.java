@@ -32,4 +32,7 @@ public interface CampaignProxy {
 
     @PostMapping(value = "/select", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     List<Campaign> selectCampaign(@RequestBody Campaign campaign);
+
+    @GetMapping(value = "/search/{keyword}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    List<Campaign> searchCampaign(@PathVariable ("keyword") String keyword);
 }

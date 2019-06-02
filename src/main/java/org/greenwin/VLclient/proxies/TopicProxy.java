@@ -4,10 +4,7 @@ import org.greenwin.VLclient.beans.Topic;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,14 +18,14 @@ public interface TopicProxy {
 
     //@GetMapping("/ms-topics/topics/")
     @GetMapping("/")
-    List<Topic> getTopics();
+    List<Topic> getTopics(@RequestHeader("Authorization") String authorizationToken);
 
     //@GetMapping("/ms-topics/{id}")
     @GetMapping("/id/{id}")
-    Topic getTopicById(@PathVariable("id") int id);
+    Topic getTopicById(@RequestHeader("Authorization") String authorizationToken, @PathVariable("id") int id);
 
     //@PostMapping("/ms-topics/")
     @PostMapping("/")
-    Topic saveTopic(@RequestBody Topic topic);
+    Topic saveTopic(@RequestHeader("Authorization") String authorizationToken, @RequestBody Topic topic);
 
 }

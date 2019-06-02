@@ -18,7 +18,7 @@ import static org.greenwin.VLclient.values.ValueType.HOME;
 
 @Controller
 @RequestMapping(HOME)
-public class HomeController {
+public class HomeController extends BaseController{
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -46,7 +46,7 @@ public class HomeController {
         //get most recent campaigns and assign each their respective topic
         List<Campaign> mostRecent = campaignProxy.getMostRecentCampaigns();
         for (Campaign campaign : mostRecent)
-            campaign.setTopic(topicProxy.getTopicById(campaign.getTopicId()));
+            campaign.setTopic(topicProxy.getTopicById(getAuthorizationToken(), campaign.getTopicId()));
         model.addAttribute("recentCampaigns", mostRecent);
 
         return "home";

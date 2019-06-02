@@ -15,7 +15,7 @@ import static org.greenwin.VLclient.values.ValueType.TOPICS;
 
 @Controller
 @RequestMapping(TOPICS)
-public class TopicController {
+public class TopicController extends BaseController{
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -28,7 +28,7 @@ public class TopicController {
     @GetMapping("/")
     public String topics(Model model, HttpSession session){
         logger.info("### topics method ###");
-        model.addAttribute("topics", topicProxy.getTopics());
+        model.addAttribute("topics", topicProxy.getTopics(getAuthorizationToken()));
         sessionController.addSessionAttributes(session, model);
         return "topics/list";
     }
@@ -37,14 +37,14 @@ public class TopicController {
     public Topic getTopicById(@PathVariable int id, Model model, HttpSession session){
         logger.info("### getTopicById method ###");
         sessionController.addSessionAttributes(session, model);
-        return topicProxy.getTopicById(id);
+        return topicProxy.getTopicById(getAuthorizationToken(), id);
     }
 
     @PostMapping("/")
     public Topic saveTopic(@ModelAttribute Topic topic, Model model, HttpSession session){
         sessionController.addSessionAttributes(session, model);
         logger.info("### saveTopic method ###");
-        return topicProxy.saveTopic(topic);
+        return topicProxy.saveTopic(getAuthorizationToken(),  topic);
     }
 
 }

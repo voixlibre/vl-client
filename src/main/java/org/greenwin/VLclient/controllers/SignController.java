@@ -76,7 +76,7 @@ public class SignController {
         logger.info(getClass() + "### signUp method ###");
         loginService.signUp(user, session);
         successfulAuthentication(session, model, user);
-        return HOME;
+        return "home";
     }
 
     /**

@@ -35,4 +35,8 @@ public class CampaignService {
             throw new WrongPeriodDefinitionException();
         return campaignProxy.selectCampaign(campaign);
     }
+
+    public List<Campaign> searchCampaign(String keyword){
+        return campaignProxy.searchCampaign(keyword);
+    }
 }
